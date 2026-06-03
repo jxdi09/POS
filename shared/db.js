@@ -4,9 +4,9 @@
 const SUPABASE_URL = 'https://daluagnbzamoxwqyvlao.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhbHVhZ25iemFtb3h3cXl2bGFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NzIxNTcsImV4cCI6MjA5NjA0ODE1N30.ukWMhARHCtpCQFugWqhhRIv2aC4bj67Ch_C5nHFCln8';
 
-let supabase = null;
+let supabaseClient = null;
 if (window.supabase && window.supabase.createClient) {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 }
 
 // Dexie.js (IndexedDB local database fallback)
@@ -47,9 +47,9 @@ async function initDatabase() {
   state.dbMode = 'local';
   state.dbStatus = 'offline';
 
-  if (typeof supabase !== 'undefined' && supabase) {
+  if (supabaseClient) {
     try {
-      const { data, error } = await supabase.from('pos_users').select('id').limit(1);
+      const { data, error } = await supabaseClient.from('pos_users').select('id').limit(1);
       if (!error) {
         state.dbMode = 'supabase';
         state.dbStatus = 'online';
@@ -96,9 +96,9 @@ async function initDatabase() {
 async function loadDatabase() {
   try {
     let settingsList = [];
-    if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
+    if (state.dbMode === 'supabase' && supabaseClient) {
       try {
-        const { data, error } = await supabase.from('pos_settings').select('*');
+        const { data, error } = await supabaseClient.from('pos_settings').select('*');
         if (!error && data) {
           settingsList = data;
           for (let s of data) {
@@ -131,9 +131,9 @@ async function loadDatabase() {
 }
 
 async function getDbProducts() {
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
+  if (state.dbMode === 'supabase' && supabaseClient) {
     try {
-      const { data, error } = await supabase.from('pos_products').select('*');
+      const { data, error } = await supabaseClient.from('pos_products').select('*');
       if (!error && data) {
         await db.products.clear();
         for (let p of data) {
@@ -150,9 +150,9 @@ async function getDbProducts() {
 }
 
 async function getDbOrders() {
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
+  if (state.dbMode === 'supabase' && supabaseClient) {
     try {
-      const { data, error } = await supabase.from('pos_orders').select('*');
+      const { data, error } = await supabaseClient.from('pos_orders').select('*');
       if (!error && data) {
         await db.orders.clear();
         for (let o of data) {
@@ -175,9 +175,9 @@ async function getDbOrders() {
 }
 
 async function getDbMaterials() {
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
+  if (state.dbMode === 'supabase' && supabaseClient) {
     try {
-      const { data, error } = await supabase.from('pos_materials').select('*');
+      const { data, error } = await supabaseClient.from('pos_materials').select('*');
       if (!error && data) {
         await db.materials.clear();
         for (let m of data) {
@@ -191,9 +191,9 @@ async function getDbMaterials() {
 }
 
 async function getDbPurchases() {
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
+  if (state.dbMode === 'supabase' && supabaseClient) {
     try {
-      const { data, error } = await supabase.from('pos_purchases').select('*');
+      const { data, error } = await supabaseClient.from('pos_purchases').select('*');
       if (!error && data) {
         await db.purchases.clear();
         for (let p of data) {
@@ -212,9 +212,9 @@ async function getDbPurchases() {
 
 async function saveDbProduct(product) {
   await db.products.put(product);
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
+  if (state.dbMode === 'supabase' && supabaseClient) {
     try {
-      await supabase.from('pos_products').upsert({
+      await supabaseClient.from('pos_products').upsert({
         id: product.id, name: product.name, category: product.category, price: product.price, cost: product.cost, stock: product.stock, image: product.image
       });
     } catch (e) { console.error(e); }
@@ -223,16 +223,16 @@ async function saveDbProduct(product) {
 
 async function deleteDbProduct(id) {
   await db.products.delete(id);
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
-    try { await supabase.from('pos_products').delete().eq('id', id); } catch (e) { console.error(e); }
+  if (state.dbMode === 'supabase' && supabaseClient) {
+    try { await supabaseClient.from('pos_products').delete().eq('id', id); } catch (e) { console.error(e); }
   }
 }
 
 async function saveDbOrder(order) {
   await db.orders.put(order);
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
+  if (state.dbMode === 'supabase' && supabaseClient) {
     try {
-      await supabase.from('pos_orders').upsert({
+      await supabaseClient.from('pos_orders').upsert({
         id: order.id, date: order.date, channel: order.channel, reference: order.reference, items: typeof order.items === 'object' ? order.items : JSON.parse(order.items), subtotal: order.subtotal, total: order.total, total_cost: order.totalCost, gp_rate: order.gpRate, gp_amount: order.gpAmount, net_revenue: order.netRevenue, profit: order.profit
       });
     } catch (e) { console.error(e); }
@@ -241,21 +241,21 @@ async function saveDbOrder(order) {
 
 async function saveDbMaterial(material) {
   await db.materials.put(material);
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
-    try { await supabase.from('pos_materials').upsert(material); } catch (e) { console.error(e); }
+  if (state.dbMode === 'supabase' && supabaseClient) {
+    try { await supabaseClient.from('pos_materials').upsert(material); } catch (e) { console.error(e); }
   }
 }
 
 async function saveDbPurchase(purchase) {
   await db.purchases.put(purchase);
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
-    try { await supabase.from('pos_purchases').upsert(purchase); } catch (e) { console.error(e); }
+  if (state.dbMode === 'supabase' && supabaseClient) {
+    try { await supabaseClient.from('pos_purchases').upsert(purchase); } catch (e) { console.error(e); }
   }
 }
 
 async function saveDbSettings(key, value) {
   await db.settings.put({ key, value });
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
-    try { await supabase.from('pos_settings').upsert({ key: key, value: value }); } catch (e) { console.error(e); }
+  if (state.dbMode === 'supabase' && supabaseClient) {
+    try { await supabaseClient.from('pos_settings').upsert({ key: key, value: value }); } catch (e) { console.error(e); }
   }
 }

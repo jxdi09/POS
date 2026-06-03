@@ -154,17 +154,17 @@ function handleImportDb(e) {
         }
 
         // Overwrite Supabase Cloud
-        if (state.dbMode === 'supabase' && supabase) {
+        if (state.dbMode === 'supabase' && supabaseClient) {
           try {
             // Delete all and insert updated
-            await supabase.from('pos_products').delete().neq('id', 'dummy');
+            await supabaseClient.from('pos_products').delete().neq('id', 'dummy');
             for (let p of parsed.products) {
-              await supabase.from('pos_products').insert(p);
+              await supabaseClient.from('pos_products').insert(p);
             }
 
-            await supabase.from('pos_orders').delete().neq('id', 'dummy');
+            await supabaseClient.from('pos_orders').delete().neq('id', 'dummy');
             for (let o of parsed.orders) {
-              await supabase.from('pos_orders').insert({
+              await supabaseClient.from('pos_orders').insert({
                 id: o.id,
                 date: o.date,
                 channel: o.channel,
@@ -181,10 +181,10 @@ function handleImportDb(e) {
             }
 
             if (parsed.shopProfile) {
-              await supabase.from('pos_settings').upsert({ key: 'shop_profile', value: parsed.shopProfile });
+              await supabaseClient.from('pos_settings').upsert({ key: 'shop_profile', value: parsed.shopProfile });
             }
             if (parsed.gpRates) {
-              await supabase.from('pos_settings').upsert({ key: 'gp_rates', value: parsed.gpRates });
+              await supabaseClient.from('pos_settings').upsert({ key: 'gp_rates', value: parsed.gpRates });
             }
           } catch (e) {
             console.error('Failed to sync restored database to Supabase:', e);

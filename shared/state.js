@@ -35,9 +35,9 @@ let state = {
 };
 
 async function verifyAuth(username, password) {
-  if (state.dbMode === 'supabase' && typeof supabase !== 'undefined' && supabase) {
+  if (state.dbMode === 'supabase' && supabaseClient) {
     try {
-      const { data, error } = await supabase.from('pos_users').select('*').eq('username', username).eq('password', password).single();
+      const { data, error } = await supabaseClient.from('pos_users').select('*').eq('username', username).eq('password', password).single();
       if (!error && data) {
         return { username: data.username, role: data.role };
       }
