@@ -74,3 +74,26 @@ ALTER TABLE pos_users DISABLE ROW LEVEL SECURITY;
 ALTER TABLE pos_products DISABLE ROW LEVEL SECURITY;
 ALTER TABLE pos_orders DISABLE ROW LEVEL SECURITY;
 ALTER TABLE pos_settings DISABLE ROW LEVEL SECURITY;
+
+-- 8. Create Materials Table
+CREATE TABLE IF NOT EXISTS pos_materials (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    unit TEXT NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 9. Create Purchases Table
+CREATE TABLE IF NOT EXISTS pos_purchases (
+    id TEXT PRIMARY KEY,
+    material_id TEXT NOT NULL,
+    date TIMESTAMPTZ DEFAULT NOW(),
+    quantity NUMERIC NOT NULL,
+    unit_price NUMERIC NOT NULL,
+    total_price NUMERIC NOT NULL,
+    note TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE pos_materials DISABLE ROW LEVEL SECURITY;
+ALTER TABLE pos_purchases DISABLE ROW LEVEL SECURITY;

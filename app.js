@@ -17,6 +17,10 @@ db.version(1).stores({
   orders: 'id, date, channel, reference, items, subtotal, total, totalCost, gpRate, gpAmount, netRevenue, profit',
   settings: 'key, value'
 });
+db.version(2).stores({
+  materials: 'id, name, unit',
+  purchases: 'id, material_id, date, quantity, unit_price, total_price, note'
+});
 
 // Mock Initial Data (for fallback bootstrap)
 const INITIAL_PRODUCTS = [
@@ -43,6 +47,8 @@ let state = {
   user: null, // { username: '', role: 'admin'|'staff' }
   products: [],
   orders: [],
+  materials: [],
+  purchases: [],
   cart: [], // { product: {}, qty: 1, sweetness: '', topping: '', notes: '', toppingPrice: 0 }
   activeTab: 'pos', // 'pos' | 'inventory' | 'reports' | 'settings'
   selectedCategory: 'all',
@@ -160,6 +166,10 @@ async function loadDatabase() {
 
     // 3. Fetch orders
     state.orders = await getDbOrders();
+    
+    // 4. Fetch materials & purchases
+    state.materials = await getDbMaterials();
+    state.purchases = await getDbPurchases();
   } catch (error) {
     console.error('Failed to load database properties:', error);
   }
@@ -209,6 +219,42 @@ async function getDbOrders() {
   return localOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
+async function getDbMaterials() {
+  if (state.dbMode === 'supabase' && supabase) {
+    try {
+      const { data, error } = await supabase.from('pos_materials').select('*');
+      if (!error && data) {
+        await db.materials.clear();
+        for (let m of data) {
+          await db.materials.put(m);
+        }
+        return data;
+      }
+    } catch (e) { console.warn(e); }
+  }
+  return await db.materials.toArray();
+}
+
+async function getDbPurchases() {
+  if (state.dbMode === 'supabase' && supabase) {
+    try {
+      const { data, error } = await supabase.from('pos_purchases').select('*');
+      if (!error && data) {
+        await db.purchases.clear();
+        for (let p of data) {
+          p.quantity = parseFloat(p.quantity);
+          p.unit_price = parseFloat(p.unit_price);
+          p.total_price = parseFloat(p.total_price);
+          await db.purchases.put(p);
+        }
+        return data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      }
+    } catch (e) { console.warn(e); }
+  }
+  const localPurchases = await db.purchases.toArray();
+  return localPurchases.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
 async function saveDbProduct(product) {
   await db.products.put(product);
   
@@ -256,6 +302,24 @@ async function saveDbOrder(order) {
         net_revenue: order.netRevenue,
         profit: order.profit
       });
+    } catch (e) { console.error(e); }
+  }
+}
+
+async function saveDbMaterial(material) {
+  await db.materials.put(material);
+  if (state.dbMode === 'supabase' && supabase) {
+    try {
+      await supabase.from('pos_materials').upsert(material);
+    } catch (e) { console.error(e); }
+  }
+}
+
+async function saveDbPurchase(purchase) {
+  await db.purchases.put(purchase);
+  if (state.dbMode === 'supabase' && supabase) {
+    try {
+      await supabase.from('pos_purchases').upsert(purchase);
     } catch (e) { console.error(e); }
   }
 }
@@ -449,6 +513,14 @@ function renderMainLayout() {
               <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
               รายงานกำไรขาดทุน
             </button>
+            <button class="nav-item ${state.activeTab === 'history' ? 'active' : ''}" id="nav-history">
+              <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ประวัติออร์เดอร์
+            </button>
+            <button class="nav-item ${state.activeTab === 'purchasing' ? 'active' : ''}" id="nav-purchasing">
+              <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><path d="M20 16.2A2 2 0 0 0 21.8 14V10A2 2 0 0 0 20 7.8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v1.8A2 2 0 0 0 2.2 10v4a2 2 0 0 0 1.8 2.2V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.8zM4 6h16v2H4zm16 12H4v-2h16z"/></svg>
+              วัตถุดิบ/จัดซื้อ
+            </button>
             <button class="nav-item ${state.activeTab === 'settings' ? 'active' : ''}" id="nav-settings">
               <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
               ตั้งค่าระบบ
@@ -489,6 +561,8 @@ function renderMainLayout() {
   if (isAdmin) {
     document.getElementById('nav-inventory').addEventListener('click', () => switchTab('inventory'));
     document.getElementById('nav-reports').addEventListener('click', () => switchTab('reports'));
+    document.getElementById('nav-history').addEventListener('click', () => switchTab('history'));
+    document.getElementById('nav-purchasing').addEventListener('click', () => switchTab('purchasing'));
     document.getElementById('nav-settings').addEventListener('click', () => switchTab('settings'));
   }
   document.getElementById('btn-logout').addEventListener('click', () => {
@@ -517,6 +591,10 @@ function renderActiveTab() {
     renderInventory(contentWrapper);
   } else if (state.activeTab === 'reports') {
     renderReports(contentWrapper);
+  } else if (state.activeTab === 'history') {
+    renderHistory(contentWrapper);
+  } else if (state.activeTab === 'purchasing') {
+    renderPurchasing(contentWrapper);
   } else if (state.activeTab === 'settings') {
     renderSettings(contentWrapper);
   }
@@ -2294,7 +2372,220 @@ function handleImportDb(e) {
 }
 
 // ==========================================================================
+// TAB: HISTORY VIEW
+// ==========================================================================
+function renderHistory(container) {
+  container.innerHTML = `
+    <div class="page-header">
+      <h2 class="page-title">ประวัติคำสั่งซื้อทั้งหมด (Order History)</h2>
+    </div>
+    <div class="inventory-list-panel">
+      <div class="table-responsive">
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th>วันที่/เวลา</th>
+              <th>บิลเลขที่</th>
+              <th>ช่องทาง</th>
+              <th>รายละเอียดรายการ</th>
+              <th>ยอดรวม</th>
+              <th>ค่า GP หัก</th>
+              <th>กำไรสุทธิ</th>
+              <th style="text-align: center;">พิมพ์ซ้ำ</th>
+            </tr>
+          </thead>
+          <tbody id="history-orders-body"></tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  
+  // Use existing logic for orders table rendering
+  const tbody = document.getElementById('history-orders-body');
+  if (state.orders.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-light); padding: 40px;">ยังไม่พบข้อมูลประวัติยอดขาย</td></tr>`;
+  } else {
+    state.orders.forEach(order => {
+      const tr = document.createElement('tr');
+      const displayDate = new Date(order.date).toLocaleString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      let chLabel = 'หน้าร้าน'; let chClass = 'walkin';
+      if (order.channel === 'lineman') { chLabel = 'LINE MAN'; chClass = 'lineman'; }
+      if (order.channel === 'grab') { chLabel = 'Grab'; chClass = 'grab'; }
+      const itemsSummary = order.items.map(it => \`\${it.name} (x\${it.qty})\${it.options ? \` [\${it.options}]\` : ''}\`).join('<br>');
+      const gpAmt = order.gpAmount !== undefined ? order.gpAmount : 0;
+
+      tr.innerHTML = `
+        <td style="white-space: nowrap; font-size: 13px;">\${displayDate}</td>
+        <td style="font-family: var(--font-latin); font-weight: 500; font-size: 13px;">\${order.id.toUpperCase()}</td>
+        <td><span class="margin-pill \${chClass}" style="color: white; font-weight: bold;">\${chLabel} \${order.reference}</span></td>
+        <td style="font-size: 13px; line-height: 1.4; max-width: 320px;">\${itemsSummary}</td>
+        <td style="font-family: var(--font-latin); font-weight: 600;">฿\${order.total}</td>
+        <td style="font-family: var(--font-latin); color: #FF4D4F;">\${gpAmt > 0 ? \`฿\${gpAmt.toFixed(1)}\` : '฿0'}</td>
+        <td style="font-family: var(--font-latin); font-weight: 600; color: \${order.profit >= 0 ? 'var(--secondary)' : '#FF4D4F'}">฿\${order.profit.toFixed(1)}</td>
+        <td style="text-align: center;">
+          <button class="btn-icon btn-print-reprint" data-id="\${order.id}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          </button>
+        </td>
+      `;
+      tr.querySelector('.btn-print-reprint').addEventListener('click', (e) => reprintReceipt(e.currentTarget.dataset.id));
+      tbody.appendChild(tr);
+    });
+  }
+}
+
+// ==========================================================================
+// TAB: PURCHASING & MATERIALS VIEW
+// ==========================================================================
+function renderPurchasing(container) {
+  container.innerHTML = `
+    <div class="page-header">
+      <h2 class="page-title">ระบบจัดซื้อวัตถุดิบและอุปกรณ์</h2>
+    </div>
+
+    <div class="settings-grid">
+      <!-- Add Material Form -->
+      <div class="inventory-form-panel">
+        <div class="panel-title">เพิ่มวัตถุดิบ/ภาชนะใหม่</div>
+        <form id="form-add-material">
+          <div class="form-group">
+            <label class="form-label" for="mat-name">ชื่อรายการ (เช่น แก้ว 16oz, น้ำตาลทราย)</label>
+            <input class="form-input" type="text" id="mat-name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mat-unit">หน่วยนับ (เช่น แถว, kg, แพ็ค)</label>
+            <input class="form-input" type="text" id="mat-unit" required>
+          </div>
+          <button class="btn-primary" type="submit" style="width:100%; padding:12px;">บันทึกรายการวัตถุดิบ</button>
+        </form>
+      </div>
+
+      <!-- Record Purchase Form -->
+      <div class="inventory-form-panel">
+        <div class="panel-title">บันทึกการซื้อ</div>
+        <form id="form-add-purchase">
+          <div class="form-group">
+            <label class="form-label" for="pur-material">เลือกวัตถุดิบ</label>
+            <select class="form-input" id="pur-material" required>
+              <option value="">-- เลือกรายการ --</option>
+              \${state.materials.map(m => \`<option value="\${m.id}">\${m.name} (\${m.unit})</option>\`).join('')}
+            </select>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label class="form-label" for="pur-qty">จำนวน</label>
+              <input class="form-input" type="number" id="pur-qty" step="0.01" min="0" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pur-price">ราคา/หน่วย</label>
+              <input class="form-input" type="number" id="pur-price" step="0.01" min="0" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pur-total">ราคารวม (บาท)</label>
+            <input class="form-input" type="number" id="pur-total" step="0.01" min="0" readonly style="background:var(--bg-app);">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pur-note">หมายเหตุ / ร้านที่ซื้อ</label>
+            <input class="form-input" type="text" id="pur-note">
+          </div>
+          <button class="btn-primary" type="submit" style="width:100%; padding:12px; background-color:var(--secondary);">บันทึกประวัติการซื้อ</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Purchase History Table -->
+    <div class="inventory-list-panel" style="margin-top: 24px;">
+      <div class="panel-title" style="margin: 24px 24px 0 24px; border: none; padding: 0;">ประวัติการซื้อวัตถุดิบ</div>
+      <div class="table-responsive">
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th>วันที่ซื้อ</th>
+              <th>รายการ</th>
+              <th>จำนวน</th>
+              <th>ราคาต่อหน่วย</th>
+              <th>ราคารวม</th>
+              <th>หมายเหตุ</th>
+            </tr>
+          </thead>
+          <tbody id="purchases-body"></tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  // Attach auto-calculate total
+  const qtyInput = document.getElementById('pur-qty');
+  const priceInput = document.getElementById('pur-price');
+  const totalInput = document.getElementById('pur-total');
+  
+  const calcTotal = () => {
+    const q = parseFloat(qtyInput.value) || 0;
+    const p = parseFloat(priceInput.value) || 0;
+    totalInput.value = (q * p).toFixed(2);
+  };
+  qtyInput.addEventListener('input', calcTotal);
+  priceInput.addEventListener('input', calcTotal);
+
+  // Form Handlers
+  document.getElementById('form-add-material').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const material = {
+      id: 'm' + Date.now(),
+      name: document.getElementById('mat-name').value.trim(),
+      unit: document.getElementById('mat-unit').value.trim(),
+      created_at: new Date().toISOString()
+    };
+    await saveDbMaterial(material);
+    state.materials.push(material);
+    alert('เพิ่มวัตถุดิบใหม่สำเร็จ');
+    renderPurchasing(container); // Reload page
+  });
+
+  document.getElementById('form-add-purchase').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const purchase = {
+      id: 'pur' + Date.now(),
+      material_id: document.getElementById('pur-material').value,
+      date: new Date().toISOString(),
+      quantity: parseFloat(qtyInput.value),
+      unit_price: parseFloat(priceInput.value),
+      total_price: parseFloat(totalInput.value),
+      note: document.getElementById('pur-note').value.trim(),
+      created_at: new Date().toISOString()
+    };
+    await saveDbPurchase(purchase);
+    state.purchases.unshift(purchase); // Add to top
+    alert('บันทึกประวัติการซื้อสำเร็จ');
+    renderPurchasing(container);
+  });
+
+  // Render Table
+  const tbody = document.getElementById('purchases-body');
+  if (state.purchases.length === 0) {
+    tbody.innerHTML = \`<tr><td colspan="6" style="text-align: center; color: var(--text-light); padding: 40px;">ยังไม่พบประวัติการซื้อ</td></tr>\`;
+  } else {
+    state.purchases.forEach(p => {
+      const mat = state.materials.find(m => m.id === p.material_id);
+      const displayDate = new Date(p.date).toLocaleString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+      const tr = document.createElement('tr');
+      tr.innerHTML = \`
+        <td>\${displayDate}</td>
+        <td style="font-weight: 600;">\${mat ? mat.name : 'Unknown'}</td>
+        <td style="font-family: var(--font-latin);">\${p.quantity} \${mat ? mat.unit : ''}</td>
+        <td style="font-family: var(--font-latin);">฿\${p.unit_price}</td>
+        <td style="font-family: var(--font-latin); font-weight: 600; color: #FF4D4F;">฿\${p.total_price}</td>
+        <td><span style="color: var(--text-secondary); font-size: 13px;">\${p.note || '-'}</span></td>
+      \`;
+      tbody.appendChild(tr);
+    });
+  }
+}
+
+// ==========================================================================
 // SYSTEM BOOTSTRAP
+
 // ==========================================================================
 async function init() {
   await initDatabase();
