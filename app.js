@@ -2411,19 +2411,19 @@ function renderHistory(container) {
       let chLabel = 'หน้าร้าน'; let chClass = 'walkin';
       if (order.channel === 'lineman') { chLabel = 'LINE MAN'; chClass = 'lineman'; }
       if (order.channel === 'grab') { chLabel = 'Grab'; chClass = 'grab'; }
-      const itemsSummary = order.items.map(it => \`\${it.name} (x\${it.qty})\${it.options ? \` [\${it.options}]\` : ''}\`).join('<br>');
+      const itemsSummary = order.items.map(it => `${it.name} (x${it.qty})${it.options ? ` [${it.options}]` : ''}`).join('<br>');
       const gpAmt = order.gpAmount !== undefined ? order.gpAmount : 0;
 
       tr.innerHTML = `
-        <td style="white-space: nowrap; font-size: 13px;">\${displayDate}</td>
-        <td style="font-family: var(--font-latin); font-weight: 500; font-size: 13px;">\${order.id.toUpperCase()}</td>
-        <td><span class="margin-pill \${chClass}" style="color: white; font-weight: bold;">\${chLabel} \${order.reference}</span></td>
-        <td style="font-size: 13px; line-height: 1.4; max-width: 320px;">\${itemsSummary}</td>
-        <td style="font-family: var(--font-latin); font-weight: 600;">฿\${order.total}</td>
-        <td style="font-family: var(--font-latin); color: #FF4D4F;">\${gpAmt > 0 ? \`฿\${gpAmt.toFixed(1)}\` : '฿0'}</td>
-        <td style="font-family: var(--font-latin); font-weight: 600; color: \${order.profit >= 0 ? 'var(--secondary)' : '#FF4D4F'}">฿\${order.profit.toFixed(1)}</td>
+        <td style="white-space: nowrap; font-size: 13px;">${displayDate}</td>
+        <td style="font-family: var(--font-latin); font-weight: 500; font-size: 13px;">${order.id.toUpperCase()}</td>
+        <td><span class="margin-pill ${chClass}" style="color: white; font-weight: bold;">${chLabel} ${order.reference}</span></td>
+        <td style="font-size: 13px; line-height: 1.4; max-width: 320px;">${itemsSummary}</td>
+        <td style="font-family: var(--font-latin); font-weight: 600;">฿${order.total}</td>
+        <td style="font-family: var(--font-latin); color: #FF4D4F;">${gpAmt > 0 ? `฿${gpAmt.toFixed(1)}` : '฿0'}</td>
+        <td style="font-family: var(--font-latin); font-weight: 600; color: ${order.profit >= 0 ? 'var(--secondary)' : '#FF4D4F'}">฿${order.profit.toFixed(1)}</td>
         <td style="text-align: center;">
-          <button class="btn-icon btn-print-reprint" data-id="\${order.id}">
+          <button class="btn-icon btn-print-reprint" data-id="${order.id}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           </button>
         </td>
@@ -2468,7 +2468,7 @@ function renderPurchasing(container) {
             <label class="form-label" for="pur-material">เลือกวัตถุดิบ</label>
             <select class="form-input" id="pur-material" required>
               <option value="">-- เลือกรายการ --</option>
-              \${state.materials.map(m => \`<option value="\${m.id}">\${m.name} (\${m.unit})</option>\`).join('')}
+              ${state.materials.map(m => `<option value="${m.id}">${m.name} (${m.unit})</option>`).join('')}
             </select>
           </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
@@ -2564,20 +2564,20 @@ function renderPurchasing(container) {
   // Render Table
   const tbody = document.getElementById('purchases-body');
   if (state.purchases.length === 0) {
-    tbody.innerHTML = \`<tr><td colspan="6" style="text-align: center; color: var(--text-light); padding: 40px;">ยังไม่พบประวัติการซื้อ</td></tr>\`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-light); padding: 40px;">ยังไม่พบประวัติการซื้อ</td></tr>`;
   } else {
     state.purchases.forEach(p => {
       const mat = state.materials.find(m => m.id === p.material_id);
       const displayDate = new Date(p.date).toLocaleString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
       const tr = document.createElement('tr');
-      tr.innerHTML = \`
-        <td>\${displayDate}</td>
-        <td style="font-weight: 600;">\${mat ? mat.name : 'Unknown'}</td>
-        <td style="font-family: var(--font-latin);">\${p.quantity} \${mat ? mat.unit : ''}</td>
-        <td style="font-family: var(--font-latin);">฿\${p.unit_price}</td>
-        <td style="font-family: var(--font-latin); font-weight: 600; color: #FF4D4F;">฿\${p.total_price}</td>
-        <td><span style="color: var(--text-secondary); font-size: 13px;">\${p.note || '-'}</span></td>
-      \`;
+      tr.innerHTML = `
+        <td>${displayDate}</td>
+        <td style="font-weight: 600;">${mat ? mat.name : 'Unknown'}</td>
+        <td style="font-family: var(--font-latin);">${p.quantity} ${mat ? mat.unit : ''}</td>
+        <td style="font-family: var(--font-latin);">฿${p.unit_price}</td>
+        <td style="font-family: var(--font-latin); font-weight: 600; color: #FF4D4F;">฿${p.total_price}</td>
+        <td><span style="color: var(--text-secondary); font-size: 13px;">${p.note || '-'}</span></td>
+      `;
       tbody.appendChild(tr);
     });
   }
@@ -2585,7 +2585,6 @@ function renderPurchasing(container) {
 
 // ==========================================================================
 // SYSTEM BOOTSTRAP
-
 // ==========================================================================
 async function init() {
   await initDatabase();
