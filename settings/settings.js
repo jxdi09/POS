@@ -1,45 +1,45 @@
-﻿// TAB 4: SETTINGS & GP CONFIGURATION VIEW
+�// TAB 4: SETTINGS & GP CONFIGURATION VIEW
 // ==========================================================================
 function renderSettings(container) {
   let dbStatusLabel = state.dbMode === 'supabase' && state.dbStatus === 'online' 
-    ? `<span class="db-status-pill online">â— à¹€à¸Šà¸·à¹ˆà¸­à¸¡à¸•à¹ˆà¸­ Supabase à¹à¸¥à¹‰à¸§</span>` 
-    : `<span class="db-status-pill offline">â— à¹ƒà¸Šà¹‰à¸‡à¸²à¸™à¸­à¸­à¸Ÿà¹„à¸¥à¸™à¹Œà¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¸™à¸µà¹‰ (Local IndexedDB)</span>`;
+    ? `<span class="db-status-pill online">�� ๬�`ื��อม�"��อ Supabase แล�0ว</span>` 
+    : `<span class="db-status-pill offline">�� ๒�`�0�!า�"ออ�x�ล�"�R๬�รื��อ�!�"ี�0 (Local IndexedDB)</span>`;
 
   container.innerHTML = `
     <div class="page-header">
-      <h2 class="page-title">à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸£à¹‰à¸²à¸™à¸„à¹‰à¸²à¹à¸¥à¸°à¸£à¸°à¸šà¸šà¹€à¸Šà¸·à¹ˆà¸­à¸¡à¸•à¹ˆà¸­</h2>
+      <h2 class="page-title">�"ั�0�!���าร�0า�"��0าและระ�a�a๬�`ื��อม�"��อ</h2>
       ${dbStatusLabel}
     </div>
 
     <div class="settings-grid">
       <!-- Shop Profile Form -->
       <div class="inventory-form-panel">
-        <div class="panel-title">à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸£à¹‰à¸²à¸™à¸„à¹‰à¸² (à¹ƒà¸šà¹€à¸ªà¸£à¹‡à¸ˆ)</div>
+        <div class="panel-title">��0อมูลร�0า�"��0า (๒�a๬สร�!��)</div>
         <form id="settings-profile-form">
           <div class="form-group">
-            <label class="form-label" for="set-shop-name">à¸Šà¸·à¹ˆà¸­à¸£à¹‰à¸²à¸™à¸„à¹‰à¸²</label>
+            <label class="form-label" for="set-shop-name">�`ื��อร�0า�"��0า</label>
             <input class="form-input" type="text" id="set-shop-name" value="${state.shopProfile.name}" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="set-shop-phone">à¹€à¸šà¸­à¸£à¹Œà¹‚à¸—à¸£à¸¨à¸±à¸žà¸—à¹Œ</label>
+            <label class="form-label" for="set-shop-phone">๬�aอร�R��รศั�~��R</label>
             <input class="form-input" type="text" id="set-shop-phone" value="${state.shopProfile.phone}" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="set-shop-address">à¸—à¸µà¹ˆà¸­à¸¢à¸¹à¹ˆ / à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¸£à¹‰à¸²à¸™</label>
+            <label class="form-label" for="set-shop-address">�ี��อยู�� / รายละ๬อีย�ร�0า�"</label>
             <input class="form-input" type="text" id="set-shop-address" value="${state.shopProfile.address}" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="set-shop-footer">à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸—à¹‰à¸²à¸¢à¹ƒà¸šà¹€à¸ªà¸£à¹‡à¸ˆ</label>
+            <label class="form-label" for="set-shop-footer">��0อ�วาม��0าย๒�a๬สร�!��</label>
             <textarea class="form-input" id="set-shop-footer" rows="3" style="resize:none; font-family:inherit;" required>${state.shopProfile.receiptFooter}</textarea>
           </div>
-          <button class="btn-primary" type="submit" style="width:100%; padding:12px; margin-top:10px;">à¸šà¸±à¸™à¸—à¸¶à¸à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸£à¹‰à¸²à¸™à¸„à¹‰à¸²</button>
+          <button class="btn-primary" type="submit" style="width:100%; padding:12px; margin-top:10px;">�aั�"�ึก��0อมูลร�0า�"��0า</button>
         </form>
       </div>
 
       <!-- GP Settings Form -->
       <div class="inventory-form-panel" style="display:flex; flex-direction:column; justify-content:space-between;">
         <div>
-          <div class="panel-title">à¸•à¸±à¹‰à¸‡à¸„à¹ˆà¸²à¸„à¸­à¸¡à¸¡à¸´à¸Šà¸Šà¸±à¹ˆà¸™à¹€à¸”à¸¥à¸´à¹€à¸§à¸­à¸£à¸µà¹ˆ (GP%)</div>
+          <div class="panel-title">�"ั�0�!���า�อมมิ�`�`ั���"๬�ลิ๬วอรี�� (GP%)</div>
           <form id="settings-gp-form">
             <div class="form-group">
               <label class="form-label" for="set-gp-lineman">LINE MAN GP (%)</label>
@@ -50,21 +50,21 @@ function renderSettings(container) {
               <input class="form-input" type="number" id="set-gp-grab" min="0" max="100" value="${state.gpRates.grab}" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="set-gp-walkin">à¸«à¸™à¹‰à¸²à¸£à¹‰à¸²à¸™ / à¸­à¸·à¹ˆà¸™à¹† GP (%)</label>
+              <label class="form-label" for="set-gp-walkin">ห�"�0าร�0า�" / อื���"�  GP (%)</label>
               <input class="form-input" type="number" id="set-gp-walkin" min="0" max="100" value="${state.gpRates.walkin}" readonly style="background-color: var(--bg-app); opacity: 0.7;">
             </div>
-            <button class="btn-primary" type="submit" style="width:100%; padding:12px; margin-top:10px;">à¸šà¸±à¸™à¸—à¸¶à¸à¸„à¹ˆà¸² GP</button>
+            <button class="btn-primary" type="submit" style="width:100%; padding:12px; margin-top:10px;">�aั�"�ึก���า GP</button>
           </form>
         </div>
 
         <div style="border-top:1px solid var(--border-color); padding-top:20px; margin-top:20px;">
-          <div class="panel-title" style="border:none; padding:0; margin-bottom:10px;">à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸à¸²à¸™à¸‚à¹‰à¸­à¸¡à¸¹à¸¥ Supabase</div>
+          <div class="panel-title" style="border:none; padding:0; margin-bottom:10px;">��0อมูลฐา�"��0อมูล Supabase</div>
           <p style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
-            à¹‚à¸„à¸£à¸‡à¸à¸²à¸£à¸™à¸µà¹‰à¹€à¸Šà¸·à¹ˆà¸­à¸¡à¸•à¹ˆà¸­à¸à¸²à¸™à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸›à¸¥à¸²à¸¢à¸—à¸²à¸‡à¹„à¸›à¸¢à¸±à¸‡ Supabase URL:<br>
+            ��ร�!การ�"ี�0๬�`ื��อม�"��อฐา�"��0อมูล�:ลาย�า�!��:ยั�! Supabase URL:<br>
             <code style="font-family:var(--font-latin); word-break:break-all;">${SUPABASE_URL}</code>
           </p>
           <p style="font-size:12px; color:var(--text-secondary); line-height:1.5; margin-top:8px;">
-            à¸«à¸²à¸à¸•à¹‰à¸­à¸‡à¸à¸²à¸£à¹€à¸›à¸¥à¸µà¹ˆà¸¢à¸™à¸à¸²à¸™à¸‚à¹‰à¸­à¸¡à¸¹à¸¥ à¸ªà¸²à¸¡à¸²à¸£à¸–à¸•à¸´à¸”à¸•à¹ˆà¸­à¸œà¸¹à¹‰à¸žà¸±à¸’à¸™à¸²à¹‚à¸›à¸£à¹à¸à¸£à¸¡ à¸«à¸£à¸·à¸­à¹à¸à¹‰à¹„à¸‚à¹„à¸Ÿà¸¥à¹Œ <code>app.js</code> à¹„à¸”à¹‰à¹‚à¸”à¸¢à¸•à¸£à¸‡
+            หาก�"�0อ�!การ๬�:ลี��ย�"ฐา�"��0อมูล สามาร��"ิ��"��อ�Sู�0�~ั��"า��:รแกรม หรือแก�0����xล�R <code>app.js</code> ���0��ย�"ร�!
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@ function renderSettings(container) {
 
     state.shopProfile = { name, phone, address, receiptFooter };
     await saveDbSettings('shop_profile', state.shopProfile);
-    alert('à¸šà¸±à¸™à¸—à¸¶à¸à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸£à¹‰à¸²à¸™à¸„à¹‰à¸²à¸ªà¸³à¹€à¸£à¹‡à¸ˆ!');
+    alert('�aั�"�ึก��0อมูลร�0า�"��0าสำ๬ร�!��!');
     renderSettings(container);
   });
 
@@ -91,7 +91,7 @@ function renderSettings(container) {
 
     state.gpRates = { lineman, grab, walkin: 0 };
     await saveDbSettings('gp_rates', state.gpRates);
-    alert('à¸šà¸±à¸™à¸—à¸¶à¸à¸„à¹ˆà¸² GP à¸ªà¸³à¹€à¸£à¹‡à¸ˆ!');
+    alert('�aั�"�ึก���า GP สำ๬ร�!��!');
     renderSettings(container);
   });
 }
@@ -129,11 +129,11 @@ function handleImportDb(e) {
       const parsed = JSON.parse(evt.target.result);
       
       if (!parsed.products || !parsed.orders) {
-        alert('à¸£à¸¹à¸›à¹à¸šà¸šà¹„à¸Ÿà¸¥à¹Œà¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸ªà¸³à¸£à¸­à¸‡à¹„à¸¡à¹ˆà¸–à¸¹à¸à¸•à¹‰à¸­à¸‡ à¹„à¸¡à¹ˆà¸ªà¸²à¸¡à¸²à¸£à¸–à¸à¸¹à¹‰à¸„à¸·à¸™à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹„à¸”à¹‰');
+        alert('รู�:แ�a�a��xล�R��0อมูลสำรอ�!�ม���ูก�"�0อ�! �ม��สามาร�กู�0�ื�"��0อมูล���0');
         return;
       }
 
-      if (confirm(`à¸•à¹‰à¸­à¸‡à¸à¸²à¸£à¹€à¸‚à¸µà¸¢à¸™à¸—à¸±à¸šà¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹ƒà¸™à¸£à¸°à¸šà¸šà¸”à¹‰à¸§à¸¢à¹„à¸Ÿà¸¥à¹Œà¸ªà¸³à¸£à¸­à¸‡à¸™à¸µà¹‰à¸«à¸£à¸·à¸­à¹„à¸¡à¹ˆ?\n(à¸ªà¸´à¸™à¸„à¹‰à¸²: ${parsed.products.length} à¸£à¸²à¸¢à¸à¸²à¸£, à¸„à¸³à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­: ${parsed.orders.length} à¸£à¸²à¸¢à¸à¸²à¸£)`)) {
+      if (confirm(`�"�0อ�!การ๬�ีย�"�ั�a��0อมูล๒�"ระ�a�a��0วย��xล�Rสำรอ�!�"ี�0หรือ�ม��?\n(สิ�"��0า: ${parsed.products.length} รายการ, �ำสั���!�9ื�0อ: ${parsed.orders.length} รายการ)`)) {
         
         // Overwrite Local Dexie
         await db.products.clear();
@@ -193,11 +193,11 @@ function handleImportDb(e) {
         
         // Reload State & Render
         await loadDatabase();
-        alert('à¸à¸¹à¹‰à¸„à¸·à¸™à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹à¸¥à¸°à¹€à¸Šà¸·à¹ˆà¸­à¸¡à¸•à¹ˆà¸­à¸£à¸°à¸šà¸šà¹€à¸ªà¸£à¹‡à¸ˆà¹€à¸£à¸µà¸¢à¸šà¸£à¹‰à¸­à¸¢à¹à¸¥à¹‰à¸§!');
+        alert('กู�0�ื�"��0อมูลและ๬�`ื��อม�"��อระ�a�a๬สร�!��๬รีย�aร�0อยแล�0ว!');
         renderReports(document.getElementById('main-content-wrapper'));
       }
     } catch (err) {
-      alert('à¹€à¸à¸´à¸”à¸‚à¹‰à¸­à¸œà¸´à¸”à¸žà¸¥à¸²à¸”à¹ƒà¸™à¸à¸²à¸£à¸­à¹ˆà¸²à¸™à¹„à¸Ÿà¸¥à¹Œ: ' + err.message);
+      alert('๬กิ���0อ�Sิ��~ลา�๒�"การอ��า�"��xล�R: ' + err.message);
     }
   };
   reader.readAsText(file);

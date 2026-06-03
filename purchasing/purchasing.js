@@ -1,75 +1,75 @@
-﻿// TAB: PURCHASING & MATERIALS VIEW
+�// TAB: PURCHASING & MATERIALS VIEW
 // ==========================================================================
 function renderPurchasing(container) {
   container.innerHTML = `
     <div class="page-header">
-      <h2 class="page-title">à¸£à¸°à¸šà¸šà¸ˆà¸±à¸”à¸‹à¸·à¹‰à¸­à¸§à¸±à¸•à¸–à¸¸à¸”à¸´à¸šà¹à¸¥à¸°à¸­à¸¸à¸›à¸à¸£à¸“à¹Œ</h2>
+      <h2 class="page-title">ระ�a�a��ั��9ื�0อวั�"�ุ�ิ�aและอุ�:กร��R</h2>
     </div>
 
     <div class="settings-grid">
       <!-- Add Material Form -->
       <div class="inventory-form-panel">
-        <div class="panel-title">à¹€à¸žà¸´à¹ˆà¸¡à¸§à¸±à¸•à¸–à¸¸à¸”à¸´à¸š/à¸ à¸²à¸Šà¸™à¸°à¹ƒà¸«à¸¡à¹ˆ</div>
+        <div class="panel-title">๬�~ิ��มวั�"�ุ�ิ�a/ภา�`�"ะ๒หม��</div>
         <form id="form-add-material">
           <div class="form-group">
-            <label class="form-label" for="mat-name">à¸Šà¸·à¹ˆà¸­à¸£à¸²à¸¢à¸à¸²à¸£ (à¹€à¸Šà¹ˆà¸™ à¹à¸à¹‰à¸§ 16oz, à¸™à¹‰à¸³à¸•à¸²à¸¥à¸—à¸£à¸²à¸¢)</label>
+            <label class="form-label" for="mat-name">�`ื��อรายการ (๬�`���" แก�0ว 16oz, �"�0ำ�"าล�ราย)</label>
             <input class="form-input" type="text" id="mat-name" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="mat-unit">à¸«à¸™à¹ˆà¸§à¸¢à¸™à¸±à¸š (à¹€à¸Šà¹ˆà¸™ à¹à¸–à¸§, kg, à¹à¸žà¹‡à¸„)</label>
+            <label class="form-label" for="mat-unit">ห�"��วย�"ั�a (๬�`���" แ�ว, kg, แ�~�!�)</label>
             <input class="form-input" type="text" id="mat-unit" required>
           </div>
-          <button class="btn-primary" type="submit" style="width:100%; padding:12px;">à¸šà¸±à¸™à¸—à¸¶à¸à¸£à¸²à¸¢à¸à¸²à¸£à¸§à¸±à¸•à¸–à¸¸à¸”à¸´à¸š</button>
+          <button class="btn-primary" type="submit" style="width:100%; padding:12px;">�aั�"�ึกรายการวั�"�ุ�ิ�a</button>
         </form>
       </div>
 
       <!-- Record Purchase Form -->
       <div class="inventory-form-panel">
-        <div class="panel-title">à¸šà¸±à¸™à¸—à¸¶à¸à¸à¸²à¸£à¸‹à¸·à¹‰à¸­</div>
+        <div class="panel-title">�aั�"�ึกการ�9ื�0อ</div>
         <form id="form-add-purchase">
           <div class="form-group">
-            <label class="form-label" for="pur-material">à¹€à¸¥à¸·à¸­à¸à¸§à¸±à¸•à¸–à¸¸à¸”à¸´à¸š</label>
+            <label class="form-label" for="pur-material">๬ลือกวั�"�ุ�ิ�a</label>
             <select class="form-input" id="pur-material" required>
-              <option value="">-- à¹€à¸¥à¸·à¸­à¸à¸£à¸²à¸¢à¸à¸²à¸£ --</option>
+              <option value="">-- ๬ลือกรายการ --</option>
               ${state.materials.map(m => `<option value="${m.id}">${m.name} (${m.unit})</option>`).join('')}
             </select>
           </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
             <div class="form-group">
-              <label class="form-label" for="pur-qty">à¸ˆà¸³à¸™à¸§à¸™</label>
+              <label class="form-label" for="pur-qty">��ำ�"ว�"</label>
               <input class="form-input" type="number" id="pur-qty" step="0.01" min="0" required>
             </div>
             <div class="form-group">
-              <label class="form-label" for="pur-price">à¸£à¸²à¸„à¸²/à¸«à¸™à¹ˆà¸§à¸¢</label>
+              <label class="form-label" for="pur-price">รา�า/ห�"��วย</label>
               <input class="form-input" type="number" id="pur-price" step="0.01" min="0" required>
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label" for="pur-total">à¸£à¸²à¸„à¸²à¸£à¸§à¸¡ (à¸šà¸²à¸—)</label>
+            <label class="form-label" for="pur-total">รา�ารวม (�aา�)</label>
             <input class="form-input" type="number" id="pur-total" step="0.01" min="0" readonly style="background:var(--bg-app);">
           </div>
           <div class="form-group">
-            <label class="form-label" for="pur-note">à¸«à¸¡à¸²à¸¢à¹€à¸«à¸•à¸¸ / à¸£à¹‰à¸²à¸™à¸—à¸µà¹ˆà¸‹à¸·à¹‰à¸­</label>
+            <label class="form-label" for="pur-note">หมาย๬ห�"ุ / ร�0า�"�ี���9ื�0อ</label>
             <input class="form-input" type="text" id="pur-note">
           </div>
-          <button class="btn-primary" type="submit" style="width:100%; padding:12px; background-color:var(--secondary);">à¸šà¸±à¸™à¸—à¸¶à¸à¸›à¸£à¸°à¸§à¸±à¸•à¸´à¸à¸²à¸£à¸‹à¸·à¹‰à¸­</button>
+          <button class="btn-primary" type="submit" style="width:100%; padding:12px; background-color:var(--secondary);">�aั�"�ึก�:ระวั�"ิการ�9ื�0อ</button>
         </form>
       </div>
     </div>
 
     <!-- Purchase History Table -->
     <div class="inventory-list-panel" style="margin-top: 24px;">
-      <div class="panel-title" style="margin: 24px 24px 0 24px; border: none; padding: 0;">à¸›à¸£à¸°à¸§à¸±à¸•à¸´à¸à¸²à¸£à¸‹à¸·à¹‰à¸­à¸§à¸±à¸•à¸–à¸¸à¸”à¸´à¸š</div>
+      <div class="panel-title" style="margin: 24px 24px 0 24px; border: none; padding: 0;">�:ระวั�"ิการ�9ื�0อวั�"�ุ�ิ�a</div>
       <div class="table-responsive">
         <table class="inventory-table">
           <thead>
             <tr>
-              <th>à¸§à¸±à¸™à¸—à¸µà¹ˆà¸‹à¸·à¹‰à¸­</th>
-              <th>à¸£à¸²à¸¢à¸à¸²à¸£</th>
-              <th>à¸ˆà¸³à¸™à¸§à¸™</th>
-              <th>à¸£à¸²à¸„à¸²à¸•à¹ˆà¸­à¸«à¸™à¹ˆà¸§à¸¢</th>
-              <th>à¸£à¸²à¸„à¸²à¸£à¸§à¸¡</th>
-              <th>à¸«à¸¡à¸²à¸¢à¹€à¸«à¸•à¸¸</th>
+              <th>วั�"�ี���9ื�0อ</th>
+              <th>รายการ</th>
+              <th>��ำ�"ว�"</th>
+              <th>รา�า�"��อห�"��วย</th>
+              <th>รา�ารวม</th>
+              <th>หมาย๬ห�"ุ</th>
             </tr>
           </thead>
           <tbody id="purchases-body"></tbody>
@@ -102,7 +102,7 @@ function renderPurchasing(container) {
     };
     await saveDbMaterial(material);
     state.materials.push(material);
-    alert('à¹€à¸žà¸´à¹ˆà¸¡à¸§à¸±à¸•à¸–à¸¸à¸”à¸´à¸šà¹ƒà¸«à¸¡à¹ˆà¸ªà¸³à¹€à¸£à¹‡à¸ˆ');
+    alert('๬�~ิ��มวั�"�ุ�ิ�a๒หม��สำ๬ร�!��');
     renderPurchasing(container); // Reload page
   });
 
@@ -120,14 +120,14 @@ function renderPurchasing(container) {
     };
     await saveDbPurchase(purchase);
     state.purchases.unshift(purchase); // Add to top
-    alert('à¸šà¸±à¸™à¸—à¸¶à¸à¸›à¸£à¸°à¸§à¸±à¸•à¸´à¸à¸²à¸£à¸‹à¸·à¹‰à¸­à¸ªà¸³à¹€à¸£à¹‡à¸ˆ');
+    alert('�aั�"�ึก�:ระวั�"ิการ�9ื�0อสำ๬ร�!��');
     renderPurchasing(container);
   });
 
   // Render Table
   const tbody = document.getElementById('purchases-body');
   if (state.purchases.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-light); padding: 40px;">à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸žà¸šà¸›à¸£à¸°à¸§à¸±à¸•à¸´à¸à¸²à¸£à¸‹à¸·à¹‰à¸­</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-light); padding: 40px;">ยั�!�ม���~�a�:ระวั�"ิการ�9ื�0อ</td></tr>`;
   } else {
     state.purchases.forEach(p => {
       const mat = state.materials.find(m => m.id === p.material_id);
@@ -137,8 +137,8 @@ function renderPurchasing(container) {
         <td>${displayDate}</td>
         <td style="font-weight: 600;">${mat ? mat.name : 'Unknown'}</td>
         <td style="font-family: var(--font-latin);">${p.quantity} ${mat ? mat.unit : ''}</td>
-        <td style="font-family: var(--font-latin);">à¸¿${p.unit_price}</td>
-        <td style="font-family: var(--font-latin); font-weight: 600; color: #FF4D4F;">à¸¿${p.total_price}</td>
+        <td style="font-family: var(--font-latin);">฿${p.unit_price}</td>
+        <td style="font-family: var(--font-latin); font-weight: 600; color: #FF4D4F;">฿${p.total_price}</td>
         <td><span style="color: var(--text-secondary); font-size: 13px;">${p.note || '-'}</span></td>
       `;
       tbody.appendChild(tr);

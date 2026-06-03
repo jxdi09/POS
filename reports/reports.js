@@ -1,4 +1,4 @@
-﻿// TAB 3: REPORTS & FINANCIAL DASHBOARD VIEW (WITH SVG CHARTS)
+�// TAB 3: REPORTS & FINANCIAL DASHBOARD VIEW (WITH SVG CHARTS)
 // ==========================================================================
 function renderReports(container) {
   let totalRevenue = 0;
@@ -51,33 +51,33 @@ function renderReports(container) {
 
   container.innerHTML = `
     <div class="page-header">
-      <h2 class="page-title">à¸ªà¸£à¸¸à¸›à¸£à¸²à¸¢à¸‡à¸²à¸™à¸¢à¸­à¸”à¸‚à¸²à¸¢à¹à¸¥à¸°à¸à¸³à¹„à¸£à¸‚à¸²à¸”à¸—à¸¸à¸™</h2>
+      <h2 class="page-title">สรุ�:ราย�!า�"ยอ��ายและกำ�ร�า��ุ�"</h2>
     </div>
 
     <!-- Financial Stats Row -->
     <div class="report-grid-stats">
       <div class="stat-card">
-        <div class="stat-card-title">à¸¢à¸­à¸”à¸‚à¸²à¸¢à¸£à¸§à¸¡ (Gross Sales)</div>
-        <div class="stat-card-value">à¸¿${totalRevenue.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})}</div>
-        <div class="stat-card-footer">à¸«à¸±à¸à¸„à¹ˆà¸²à¸„à¸­à¸¡à¸¡à¸´à¸Šà¸Šà¸±à¹ˆà¸™ GP à¹à¸¥à¹‰à¸§à¸ˆà¸°à¹€à¸«à¸¥à¸·à¸­à¸£à¸²à¸¢à¸£à¸±à¸šà¸ˆà¸£à¸´à¸‡</div>
+        <div class="stat-card-title">ยอ��ายรวม (Gross Sales)</div>
+        <div class="stat-card-value">฿${totalRevenue.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})}</div>
+        <div class="stat-card-footer">หัก���า�อมมิ�`�`ั���" GP แล�0ว��ะ๬หลือรายรั�a��ริ�!</div>
       </div>
       
       <div class="stat-card">
-        <div class="stat-card-title">à¸«à¸±à¸à¸„à¹ˆà¸²à¸˜à¸£à¸£à¸¡à¹€à¸™à¸µà¸¢à¸¡ GP à¸£à¸§à¸¡</div>
-        <div class="stat-card-value" style="color: #FF4D4F;">-à¸¿${totalGpDeductions.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})}</div>
-        <div class="stat-card-footer">à¹€à¸‰à¸¥à¸µà¹ˆà¸¢à¸•à¸²à¸¡à¸ˆà¸£à¸´à¸‡à¸•à¸²à¸¡à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ LINE MAN / Grab</div>
+        <div class="stat-card-title">หัก���า��รรม๬�"ียม GP รวม</div>
+        <div class="stat-card-value" style="color: #FF4D4F;">-฿${totalGpDeductions.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})}</div>
+        <div class="stat-card-footer">๬�0ลี��ย�"าม��ริ�!�"ามออร�R๬�อร�R LINE MAN / Grab</div>
       </div>
 
       <div class="stat-card">
-        <div class="stat-card-title">à¸à¸³à¹„à¸£à¸ªà¸¸à¸—à¸˜à¸´ (Net Profit)</div>
-        <div class="stat-card-value profit ${netProfit < 0 ? 'loss' : ''}">à¸¿${netProfit.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})}</div>
-        <div class="stat-card-footer">à¸„à¸³à¸™à¸§à¸“à¸ˆà¸²à¸ (à¸£à¸²à¸¢à¸£à¸±à¸šà¸ˆà¸£à¸´à¸‡ - à¸•à¹‰à¸™à¸—à¸¸à¸™à¸‚à¸­à¸‡à¸„à¸µà¸¢à¹Œà¹ƒà¸™à¸£à¸°à¸šà¸š)</div>
+        <div class="stat-card-title">กำ�รสุ���ิ (Net Profit)</div>
+        <div class="stat-card-value profit ${netProfit < 0 ? 'loss' : ''}">฿${netProfit.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})}</div>
+        <div class="stat-card-footer">�ำ�"ว���าก (รายรั�a��ริ�! - �"�0�"�ุ�"�อ�!�ีย�R๒�"ระ�a�a)</div>
       </div>
 
       <div class="stat-card">
-        <div class="stat-card-title">à¸­à¸±à¸•à¸£à¸²à¸à¸³à¹„à¸£à¸«à¸¥à¸±à¸‡à¸«à¸±à¸ GP &amp; à¸•à¹‰à¸™à¸—à¸¸à¸™</div>
+        <div class="stat-card-title">อั�"รากำ�รหลั�!หัก GP &amp; �"�0�"�ุ�"</div>
         <div class="stat-card-value" style="color: var(--primary);">${overallMargin}%</div>
-        <div class="stat-card-footer">à¸ˆà¸²à¸à¸£à¸²à¸¢à¸£à¸±à¸šà¸ˆà¸£à¸´à¸‡à¸£à¸§à¸¡ à¸¿${netRevenue.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+        <div class="stat-card-footer">��ากรายรั�a��ริ�!รวม ฿${netRevenue.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
       </div>
     </div>
 
@@ -87,10 +87,10 @@ function renderReports(container) {
         <!-- SVG Daily Sales Bar Chart -->
         <div class="svg-chart-container">
           <div class="svg-chart-title">
-            <span>à¸¢à¸­à¸”à¸‚à¸²à¸¢à¹à¸¥à¸°à¸à¸³à¹„à¸£à¸ªà¸¸à¸—à¸˜à¸´à¸¢à¹‰à¸­à¸™à¸«à¸¥à¸±à¸‡ 7 à¸§à¸±à¸™</span>
+            <span>ยอ��ายและกำ�รสุ���ิย�0อ�"หลั�! 7 วั�"</span>
             <div style="display:flex; gap:12px; font-size:11px;">
-              <span style="color:var(--primary);">â–  à¸¢à¸­à¸”à¸‚à¸²à¸¢à¸£à¸§à¸¡</span>
-              <span style="color:var(--secondary);">â–  à¸à¸³à¹„à¸£à¸ªà¸¸à¸—à¸˜à¸´</span>
+              <span style="color:var(--primary);">�� ยอ��ายรวม</span>
+              <span style="color:var(--secondary);">�� กำ�รสุ���ิ</span>
             </div>
           </div>
           <div id="chart-daily-container" style="height: 180px;">
@@ -100,7 +100,7 @@ function renderReports(container) {
 
         <!-- SVG Category Donut Chart -->
         <div class="svg-chart-container">
-          <div class="svg-chart-title">à¸ªà¸±à¸”à¸ªà¹ˆà¸§à¸™à¸¢à¸­à¸”à¸‚à¸²à¸¢à¸•à¸²à¸¡à¸«à¸¡à¸§à¸”à¸«à¸¡à¸¹à¹ˆà¸ªà¸´à¸™à¸„à¹‰à¸²</div>
+          <div class="svg-chart-title">สั�ส��ว�"ยอ��าย�"ามหมว�หมู��สิ�"��0า</div>
           <div id="chart-category-container" style="padding-top:10px;">
             ${renderCategoryPieChart()}
           </div>
@@ -112,15 +112,15 @@ function renderReports(container) {
     <div class="report-platforms-section">
       <!-- Left Card: Platform breakdowns -->
       <div class="platform-split-card">
-        <div class="panel-title" style="margin-bottom: 24px;">à¸§à¸´à¹€à¸„à¸£à¸²à¸°à¸«à¹Œà¸Šà¹ˆà¸­à¸‡à¸—à¸²à¸‡à¸à¸²à¸£à¸‚à¸²à¸¢ (Delivery Channels)</div>
+        <div class="panel-title" style="margin-bottom: 24px;">วิ๬�ราะห�R�`��อ�!�า�!การ�าย (Delivery Channels)</div>
         
         <!-- Line Man -->
         <div class="platform-row">
           <div class="platform-indicator lineman"></div>
           <div class="platform-details">
             <div class="platform-title-row">
-              <span>LINE MAN (${linemanOrders} à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ)</span>
-              <span>à¸¢à¸­à¸”à¸‚à¸²à¸¢: à¸¿${linemanRevenue.toLocaleString()} (à¸à¸³à¹„à¸£: à¸¿${linemanProfit.toLocaleString()})</span>
+              <span>LINE MAN (${linemanOrders} ออร�R๬�อร�R)</span>
+              <span>ยอ��าย: ฿${linemanRevenue.toLocaleString()} (กำ�ร: ฿${linemanProfit.toLocaleString()})</span>
             </div>
             <div class="platform-bar-bg">
               <div class="platform-bar-fill lineman" style="width: ${linemanPercent}%"></div>
@@ -133,8 +133,8 @@ function renderReports(container) {
           <div class="platform-indicator grab"></div>
           <div class="platform-details">
             <div class="platform-title-row">
-              <span>Grab (${grabOrders} à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ)</span>
-              <span>à¸¢à¸­à¸”à¸‚à¸²à¸¢: à¸¿${grabRevenue.toLocaleString()} (à¸à¸³à¹„à¸£: à¸¿${grabProfit.toLocaleString()})</span>
+              <span>Grab (${grabOrders} ออร�R๬�อร�R)</span>
+              <span>ยอ��าย: ฿${grabRevenue.toLocaleString()} (กำ�ร: ฿${grabProfit.toLocaleString()})</span>
             </div>
             <div class="platform-bar-bg">
               <div class="platform-bar-fill grab" style="width: ${grabPercent}%"></div>
@@ -147,8 +147,8 @@ function renderReports(container) {
           <div class="platform-indicator walkin"></div>
           <div class="platform-details">
             <div class="platform-title-row">
-              <span>à¸«à¸™à¹‰à¸²à¸£à¹‰à¸²à¸™ / à¸­à¸·à¹ˆà¸™à¹† (${walkinOrders} à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ)</span>
-              <span>à¸¢à¸­à¸”à¸‚à¸²à¸¢: à¸¿${walkinRevenue.toLocaleString()} (à¸à¸³à¹„à¸£: à¸¿${walkinProfit.toLocaleString()})</span>
+              <span>ห�"�0าร�0า�" / อื���"�  (${walkinOrders} ออร�R๬�อร�R)</span>
+              <span>ยอ��าย: ฿${walkinRevenue.toLocaleString()} (กำ�ร: ฿${walkinProfit.toLocaleString()})</span>
             </div>
             <div class="platform-bar-bg">
               <div class="platform-bar-fill walkin" style="width: ${walkinPercent}%"></div>
@@ -159,14 +159,14 @@ function renderReports(container) {
 
       <!-- Right Card: Backup Database options -->
       <div class="backup-panel">
-        <div class="panel-title">à¸ªà¸³à¸£à¸­à¸‡à¹„à¸Ÿà¸¥à¹Œà¹à¸¥à¸°à¸à¸¹à¹‰à¸„à¸·à¸™à¸‚à¹‰à¸­à¸¡à¸¹à¸¥ (Database Backups)</div>
+        <div class="panel-title">สำรอ�!��xล�Rและกู�0�ื�"��0อมูล (Database Backups)</div>
         <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.5;">
-          à¹€à¸žà¸·à¹ˆà¸­à¸›à¹‰à¸­à¸‡à¸à¸±à¸™à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸à¸²à¸£à¸‚à¸²à¸¢à¸ªà¸¹à¸à¸«à¸²à¸¢ à¹‚à¸›à¸£à¸”à¸”à¸²à¸§à¸™à¹Œà¹‚à¸«à¸¥à¸”à¹à¸¥à¸°à¸ªà¸³à¸£à¸­à¸‡à¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¹„à¸§à¹‰à¸ªà¸¡à¹ˆà¸³à¹€à¸ªà¸¡à¸­ à¸«à¸²à¸à¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡ iPad à¸•à¸à¸«à¸¥à¹ˆà¸™à¸«à¸£à¸·à¸­à¸Šà¸³à¸£à¸¸à¸”à¹€à¸ªà¸µà¸¢à¸«à¸²à¸¢ à¸„à¸¸à¸“à¸ªà¸²à¸¡à¸²à¸£à¸–à¸”à¸²à¸§à¸™à¹Œà¹‚à¸«à¸¥à¸”à¹„à¸Ÿà¸¥à¹Œà¸™à¸µà¹‰à¹„à¸›à¸­à¸±à¸›à¹‚à¸«à¸¥à¸”à¹ƒà¸ªà¹ˆ iPad à¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¹ƒà¸«à¸¡à¹ˆà¸«à¸£à¸·à¸­à¸£à¸°à¸šà¸šà¸„à¸¥à¸²à¸§à¸”à¹Œà¹€à¸žà¸·à¹ˆà¸­à¸à¸¹à¹‰à¸„à¸·à¸™à¹„à¸”à¹‰à¸—à¸±à¸™à¸—à¸µ
+          ๬�~ื��อ�:�0อ�!กั�"��0อมูลการ�ายสูญหาย ��:ร��าว�"�R�หล�และสำรอ�!��0อมูล�ว�0สม��ำ๬สมอ หาก๬�รื��อ�! iPad �"กหล���"หรือ�`ำรุ�๬สียหาย �ุ�สามาร��าว�"�R�หล���xล�R�"ี�0��:อั�:�หล�๒ส�� iPad ๬�รื��อ�!๒หม��หรือระ�a�a�ลาว��R๬�~ื��อกู�0�ื�"���0�ั�"�ี
         </p>
         <div class="backup-buttons">
-          <button class="btn-backup" id="btn-export-db">à¸”à¸²à¸§à¸™à¹Œà¹‚à¸«à¸¥à¸”à¹„à¸Ÿà¸¥à¹Œà¸ªà¸³à¸£à¸­à¸‡à¸‚à¹‰à¸­à¸¡à¸¹à¸¥ (.json)</button>
+          <button class="btn-backup" id="btn-export-db">�าว�"�R�หล���xล�Rสำรอ�!��0อมูล (.json)</button>
           <label class="btn-restore-label" for="import-db-file">
-            à¹€à¸¥à¸·à¸­à¸à¹„à¸Ÿà¸¥à¹Œà¹€à¸žà¸·à¹ˆà¸­à¸à¸¹à¹‰à¸„à¸·à¸™à¸‚à¹‰à¸­à¸¡à¸¹à¸¥
+            ๬ลือก��xล�R๬�~ื��อกู�0�ื�"��0อมูล
             <input type="file" id="import-db-file" accept=".json" style="display: none;">
           </label>
         </div>
@@ -175,19 +175,19 @@ function renderReports(container) {
 
     <!-- Bottom logs panel -->
     <div class="inventory-list-panel" style="margin-bottom: 30px;">
-      <div class="panel-title" style="margin: 24px 24px 0 24px; border: none; padding: 0;">à¸›à¸£à¸°à¸§à¸±à¸•à¸´à¸„à¸³à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸” (Transaction History)</div>
+      <div class="panel-title" style="margin: 24px 24px 0 24px; border: none; padding: 0;">�:ระวั�"ิ�ำสั���!�9ื�0อ�ั�0�!หม� (Transaction History)</div>
       <div class="table-responsive">
         <table class="inventory-table">
           <thead>
             <tr>
-              <th>à¸§à¸±à¸™à¸—à¸µà¹ˆ/à¹€à¸§à¸¥à¸²</th>
-              <th>à¸šà¸´à¸¥à¹€à¸¥à¸‚à¸—à¸µà¹ˆ</th>
-              <th>à¸Šà¹ˆà¸­à¸‡à¸—à¸²à¸‡</th>
-              <th>à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¸£à¸²à¸¢à¸à¸²à¸£</th>
-              <th>à¸¢à¸­à¸”à¸£à¸§à¸¡</th>
-              <th>à¸„à¹ˆà¸² GP à¸«à¸±à¸</th>
-              <th>à¸à¸³à¹„à¸£à¸ªà¸¸à¸—à¸˜à¸´</th>
-              <th style="text-align: center;">à¸žà¸´à¸¡à¸žà¹Œà¸‹à¹‰à¸³</th>
+              <th>วั�"�ี��/๬วลา</th>
+              <th>�aิล๬ล��ี��</th>
+              <th>�`��อ�!�า�!</th>
+              <th>รายละ๬อีย�รายการ</th>
+              <th>ยอ�รวม</th>
+              <th>���า GP หัก</th>
+              <th>กำ�รสุ���ิ</th>
+              <th style="text-align: center;">�~ิม�~�R�9�0ำ</th>
             </tr>
           </thead>
           <tbody id="reports-orders-body"></tbody>
@@ -243,7 +243,7 @@ function render7DaySalesChart() {
     const labelVal = Math.round(maxSales - (maxSales / 2) * i);
     svgContent += `
       <line x1="${padding}" y1="${yVal}" x2="${chartWidth - padding}" y2="${yVal}" stroke="var(--border-color)" stroke-dasharray="3" stroke-width="1" />
-      <text x="${padding - 5}" y="${yVal + 3}" font-size="10" text-anchor="end" fill="var(--text-secondary)" font-family="var(--font-latin)">à¸¿${labelVal}</text>
+      <text x="${padding - 5}" y="${yVal + 3}" font-size="10" text-anchor="end" fill="var(--text-secondary)" font-family="var(--font-latin)">฿${labelVal}</text>
     `;
   }
 
@@ -259,10 +259,10 @@ function render7DaySalesChart() {
 
     svgContent += `
       <rect x="${x}" y="${salesY}" width="${barWidth}" height="${salesHeight}" fill="var(--primary)" rx="3" class="chart-bar-hover">
-        <title>à¸¢à¸­à¸”à¸‚à¸²à¸¢ ${d.label}: à¸¿${d.sales.toLocaleString()}</title>
+        <title>ยอ��าย ${d.label}: ฿${d.sales.toLocaleString()}</title>
       </rect>
       <rect x="${x + barWidth + 3}" y="${profitY}" width="${barWidth}" height="${profitHeight}" fill="var(--secondary)" rx="3" class="chart-bar-hover">
-        <title>à¸à¸³à¹„à¸£à¸ªà¸¸à¸—à¸˜à¸´ ${d.label}: à¸¿${d.profit.toLocaleString()}</title>
+        <title>กำ�รสุ���ิ ${d.label}: ฿${d.profit.toLocaleString()}</title>
       </rect>
       <text x="${x + barWidth}" y="${chartHeight - 10}" font-size="10" text-anchor="middle" fill="var(--text-secondary)">${d.label}</text>
     `;
@@ -291,7 +291,7 @@ function renderCategoryPieChart() {
 
   const total = catSales.drinks + catSales.snacks + catSales.others;
   if (total === 0) {
-    return `<div style="text-align:center; padding:40px; color:var(--text-light);">à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸µà¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸¢à¸­à¸”à¸‚à¸²à¸¢à¹ƒà¸™à¸£à¸°à¸šà¸š</div>`;
+    return `<div style="text-align:center; padding:40px; color:var(--text-light);">ยั�!�ม��มี��0อมูลยอ��าย๒�"ระ�a�a</div>`;
   }
 
   const r = 45;
@@ -340,15 +340,15 @@ function renderCategoryPieChart() {
       <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
         <div style="display:flex; align-items:center; gap:8px;">
           <span style="display:inline-block; width:12px; height:12px; border-radius:3px; background-color:var(--primary);"></span>
-          <strong>à¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¸”à¸·à¹ˆà¸¡:</strong> à¸¿${catSales.drinks.toLocaleString()} (${Math.round(drinkPct*100)}%)
+          <strong>๬�รื��อ�!�ื��ม:</strong> ฿${catSales.drinks.toLocaleString()} (${Math.round(drinkPct*100)}%)
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
           <span style="display:inline-block; width:12px; height:12px; border-radius:3px; background-color:var(--secondary);"></span>
-          <strong>à¸‚à¸™à¸¡/à¹€à¸šà¹€à¸à¸­à¸£à¸µà¹ˆ:</strong> à¸¿${catSales.snacks.toLocaleString()} (${Math.round(snackPct*100)}%)
+          <strong>��"ม/๬�a๬กอรี��:</strong> ฿${catSales.snacks.toLocaleString()} (${Math.round(snackPct*100)}%)
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
           <span style="display:inline-block; width:12px; height:12px; border-radius:3px; background-color:var(--accent);"></span>
-          <strong>à¸­à¸·à¹ˆà¸™à¹†:</strong> à¸¿${catSales.others.toLocaleString()} (${Math.round(otherPct*100)}%)
+          <strong>อื���"� :</strong> ฿${catSales.others.toLocaleString()} (${Math.round(otherPct*100)}%)
         </div>
       </div>
     </div>
@@ -365,7 +365,7 @@ function renderReportsOrders() {
     tbody.innerHTML = `
       <tr>
         <td colspan="8" style="text-align: center; color: var(--text-light); padding: 40px;">
-          à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸žà¸šà¸‚à¹‰à¸­à¸¡à¸¹à¸¥à¸›à¸£à¸°à¸§à¸±à¸•à¸´à¸¢à¸­à¸”à¸‚à¸²à¸¢à¸ªà¸´à¸™à¸„à¹‰à¸²à¹ƒà¸™à¸£à¸°à¸šà¸š
+          ยั�!�ม���~�a��0อมูล�:ระวั�"ิยอ��ายสิ�"��0า๒�"ระ�a�a
         </td>
       </tr>
     `;
@@ -379,7 +379,7 @@ function renderReportsOrders() {
       hour: '2-digit', minute: '2-digit'
     });
 
-    let chLabel = 'à¸«à¸™à¹‰à¸²à¸£à¹‰à¸²à¸™';
+    let chLabel = 'ห�"�0าร�0า�"';
     let chClass = 'walkin';
     if (order.channel === 'lineman') { chLabel = 'LINE MAN'; chClass = 'lineman'; }
     if (order.channel === 'grab') { chLabel = 'Grab'; chClass = 'grab'; }
@@ -400,10 +400,10 @@ function renderReportsOrders() {
         </span>
       </td>
       <td style="font-size: 13px; line-height: 1.4; max-width: 320px;">${itemsSummary}</td>
-      <td style="font-family: var(--font-latin); font-weight: 600;">à¸¿${order.total}</td>
-      <td style="font-family: var(--font-latin); color: #FF4D4F;">${gpAmt > 0 ? `à¸¿${gpAmt.toFixed(1)}` : 'à¸¿0'}</td>
+      <td style="font-family: var(--font-latin); font-weight: 600;">฿${order.total}</td>
+      <td style="font-family: var(--font-latin); color: #FF4D4F;">${gpAmt > 0 ? `฿${gpAmt.toFixed(1)}` : '฿0'}</td>
       <td style="font-family: var(--font-latin); font-weight: 600; color: ${order.profit >= 0 ? 'var(--secondary)' : '#FF4D4F'}">
-        à¸¿${order.profit.toFixed(1)}
+        ฿${order.profit.toFixed(1)}
       </td>
       <td style="text-align: center;">
         <button class="btn-icon btn-print-reprint" data-id="${order.id}">
@@ -431,7 +431,7 @@ function reprintReceipt(orderId) {
     hour: '2-digit', minute: '2-digit', second: '2-digit'
   });
 
-  let channelLabel = 'à¸«à¸™à¹‰à¸²à¸£à¹‰à¸²à¸™ / à¸­à¸·à¹ˆà¸™à¹†';
+  let channelLabel = 'ห�"�0าร�0า�" / อื���"� ';
   if (order.channel === 'lineman') channelLabel = 'LINE MAN';
   if (order.channel === 'grab') channelLabel = 'Grab';
 
@@ -440,22 +440,22 @@ function reprintReceipt(orderId) {
       <div class="receipt-header">
         <div class="receipt-title">${state.shopProfile.name}</div>
         <div class="receipt-subtitle">${state.shopProfile.address}</div>
-        <div class="receipt-subtitle">à¹‚à¸—à¸£. ${state.shopProfile.phone}</div>
-        <div class="receipt-channel-badge">${channelLabel} ${order.reference} (à¸žà¸´à¸¡à¸žà¹Œà¸‹à¹‰à¸³)</div>
+        <div class="receipt-subtitle">��ร. ${state.shopProfile.phone}</div>
+        <div class="receipt-channel-badge">${channelLabel} ${order.reference} (�~ิม�~�R�9�0ำ)</div>
       </div>
       
       <div class="receipt-metadata">
-        <div><strong>à¸šà¸´à¸¥à¹€à¸¥à¸‚à¸—à¸µà¹ˆ:</strong> ${order.id.toUpperCase()}</div>
-        <div><strong>à¸§à¸±à¸™à¸—à¸µà¹ˆà¸ªà¸±à¹ˆà¸‡:</strong> ${thaiDate}</div>
-        <div><strong>à¸œà¸¹à¹‰à¸—à¸³à¸£à¸²à¸¢à¸à¸²à¸£:</strong> ${state.user.username}</div>
+        <div><strong>�aิล๬ล��ี��:</strong> ${order.id.toUpperCase()}</div>
+        <div><strong>วั�"�ี��สั���!:</strong> ${thaiDate}</div>
+        <div><strong>�Sู�0�ำรายการ:</strong> ${state.user.username}</div>
       </div>
       
       <table class="receipt-items-table">
         <thead>
           <tr>
-            <th>à¸£à¸²à¸¢à¸à¸²à¸£</th>
-            <th style="width: 15%; text-align: center;">à¸ˆà¸³à¸™à¸§à¸™</th>
-            <th class="price-col" style="width: 25%;">à¸¢à¸­à¸”à¸£à¸§à¸¡</th>
+            <th>รายการ</th>
+            <th style="width: 15%; text-align: center;">��ำ�"ว�"</th>
+            <th class="price-col" style="width: 25%;">ยอ�รวม</th>
           </tr>
         </thead>
         <tbody>
@@ -466,7 +466,7 @@ function reprintReceipt(orderId) {
                 ${item.options ? `<div class="receipt-item-details">${item.options}</div>` : ''}
               </td>
               <td style="text-align: center;">x${item.qty}</td>
-              <td class="price-col">à¸¿${item.price * item.qty}</td>
+              <td class="price-col">฿${item.price * item.qty}</td>
             </tr>
           `).join('')}
         </tbody>
@@ -474,12 +474,12 @@ function reprintReceipt(orderId) {
       
       <div class="receipt-summary">
         <div class="receipt-summary-row">
-          <span>à¸ˆà¸³à¸™à¸§à¸™à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”</span>
-          <span>${order.items.reduce((s, i) => s + i.qty, 0)} à¸Šà¸´à¹‰à¸™</span>
+          <span>��ำ�"ว�"�ั�0�!หม�</span>
+          <span>${order.items.reduce((s, i) => s + i.qty, 0)} �`ิ�0�"</span>
         </div>
         <div class="receipt-summary-row total">
-          <span>à¸¢à¸­à¸”à¸£à¸§à¸¡à¸—à¸±à¹‰à¸‡à¸ªà¸´à¹‰à¸™</span>
-          <span>à¸¿${order.total}</span>
+          <span>ยอ�รวม�ั�0�!สิ�0�"</span>
+          <span>฿${order.total}</span>
         </div>
       </div>
       

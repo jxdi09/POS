@@ -1,4 +1,4 @@
-﻿// TAB 1: POS VIEW & LOGIC
+�// TAB 1: POS VIEW & LOGIC
 // ==========================================================================
 function renderPOS(container) {
   container.innerHTML = `
@@ -8,16 +8,16 @@ function renderPOS(container) {
         <div class="catalog-header">
           <div class="search-bar">
             <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input class="search-input" type="text" id="catalog-search" placeholder="à¸„à¹‰à¸™à¸«à¸²à¹€à¸¡à¸™à¸¹à¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¸”à¸·à¹ˆà¸¡ / à¸‚à¸™à¸¡..." value="${state.searchQuery}">
+            <input class="search-input" type="text" id="catalog-search" placeholder="��0�"หา๬ม�"ู๬�รื��อ�!�ื��ม / ��"ม..." value="${state.searchQuery}">
           </div>
         </div>
         
         <!-- Category Tab Bar -->
         <div class="categories-tabs">
-          <button class="category-tab ${state.selectedCategory === 'all' ? 'active' : ''}" data-cat="all">à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”</button>
-          <button class="category-tab ${state.selectedCategory === 'drinks' ? 'active' : ''}" data-cat="drinks">à¹€à¸„à¸£à¸·à¹ˆà¸­à¸‡à¸”à¸·à¹ˆà¸¡ (Drinks)</button>
-          <button class="category-tab ${state.selectedCategory === 'snacks' ? 'active' : ''}" data-cat="snacks">à¸‚à¸™à¸¡/à¹€à¸šà¹€à¸à¸­à¸£à¸µà¹ˆ (Snacks)</button>
-          <button class="category-tab ${state.selectedCategory === 'others' ? 'active' : ''}" data-cat="others">à¸­à¸·à¹ˆà¸™à¹† (Others)</button>
+          <button class="category-tab ${state.selectedCategory === 'all' ? 'active' : ''}" data-cat="all">�ั�0�!หม�</button>
+          <button class="category-tab ${state.selectedCategory === 'drinks' ? 'active' : ''}" data-cat="drinks">๬�รื��อ�!�ื��ม (Drinks)</button>
+          <button class="category-tab ${state.selectedCategory === 'snacks' ? 'active' : ''}" data-cat="snacks">��"ม/๬�a๬กอรี�� (Snacks)</button>
+          <button class="category-tab ${state.selectedCategory === 'others' ? 'active' : ''}" data-cat="others">อื���"�  (Others)</button>
         </div>
 
         <!-- Product Grid -->
@@ -28,17 +28,17 @@ function renderPOS(container) {
       <div class="pos-cart">
         <div class="cart-header">
           <div class="cart-title">
-            à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œà¸›à¸±à¸ˆà¸ˆà¸¸à¸šà¸±à¸™
+            ออร�R๬�อร�R�:ั����ุ�aั�"
             <span class="cart-count">${getCartItemsCount()}</span>
           </div>
-          <button class="cart-clear" id="btn-clear-cart">à¸¥à¹‰à¸²à¸‡à¸•à¸°à¸à¸£à¹‰à¸²</button>
+          <button class="cart-clear" id="btn-clear-cart">ล�0า�!�"ะกร�0า</button>
         </div>
 
         <div class="cart-items" id="pos-cart-items"></div>
 
         <!-- Channel Select (Line Man, Grab, Walk-in) -->
         <div class="cart-channel-section">
-          <label class="channel-label">à¸Šà¹ˆà¸­à¸‡à¸—à¸²à¸‡à¸£à¸±à¸šà¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ</label>
+          <label class="channel-label">�`��อ�!�า�!รั�aออร�R๬�อร�R</label>
           <div class="channel-buttons">
             <button class="channel-btn lineman ${state.selectedChannel === 'lineman' ? 'selected' : ''}" data-channel="lineman">
               <div class="channel-icon">LM</div>
@@ -50,31 +50,31 @@ function renderPOS(container) {
             </button>
             <button class="channel-btn walkin ${state.selectedChannel === 'walkin' ? 'selected' : ''}" data-channel="walkin">
               <div class="channel-icon">W</div>
-              à¸«à¸™à¹‰à¸²à¸£à¹‰à¸²à¸™ / à¸­à¸·à¹ˆà¸™à¹†
+              ห�"�0าร�0า�" / อื���"� 
             </button>
           </div>
           <button class="quick-paste-btn" id="btn-quick-paste">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
-            âš¡ à¸„à¸µà¸¢à¹Œà¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œà¸”à¹ˆà¸§à¸™à¸ˆà¸²à¸ Grab/LINE MAN
+            �a� �ีย�Rออร�R๬�อร�R���ว�"��าก Grab/LINE MAN
           </button>
         </div>
 
         <!-- Cart Summary & Checkout -->
         <div class="cart-summary">
           ${state.selectedChannel !== 'walkin' ? `
-            <input class="order-num-input" type="text" id="order-reference" placeholder="à¸£à¸«à¸±à¸ªà¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œà¹€à¸”à¸¥à¸´à¹€à¸§à¸­à¸£à¸µà¹ˆ (à¹€à¸Šà¹ˆà¸™ #4528)" value="${state.orderNumber}">
+            <input class="order-num-input" type="text" id="order-reference" placeholder="รหัสออร�R๬�อร�R๬�ลิ๬วอรี�� (๬�`���" #4528)" value="${state.orderNumber}">
           ` : ''}
           <div class="summary-row">
-            <span>à¸ˆà¸³à¸™à¸§à¸™à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”</span>
-            <span id="summary-qty">${getCartItemsCount()} à¸Šà¸´à¹‰à¸™</span>
+            <span>��ำ�"ว�"�ั�0�!หม�</span>
+            <span id="summary-qty">${getCartItemsCount()} �`ิ�0�"</span>
           </div>
           <div class="summary-row total">
-            <span>à¸¢à¸­à¸”à¸£à¸§à¸¡à¸ªà¸¸à¸—à¸˜à¸´</span>
-            <span class="total-val">à¸¿<span id="summary-total">${getCartTotal()}</span></span>
+            <span>ยอ�รวมสุ���ิ</span>
+            <span class="total-val">฿<span id="summary-total">${getCartTotal()}</span></span>
           </div>
           <button class="checkout-btn" id="btn-checkout" ${state.cart.length === 0 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-            à¸¢à¸·à¸™à¸¢à¸±à¸™à¸à¸²à¸£à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­ &amp; à¸žà¸´à¸¡à¸žà¹Œà¹ƒà¸šà¸ªà¸±à¹ˆà¸‡à¸‚à¸­à¸‡
+            ยื�"ยั�"การสั���!�9ื�0อ &amp; �~ิม�~�R๒�aสั���!�อ�!
           </button>
         </div>
       </div>
@@ -162,7 +162,7 @@ function filterAndRenderProducts() {
   if (filtered.length === 0) {
     grid.innerHTML = `
       <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-light);">
-        <p>à¹„à¸¡à¹ˆà¸žà¸šà¸£à¸²à¸¢à¸à¸²à¸£à¸ªà¸´à¸™à¸„à¹‰à¸²à¸—à¸µà¹ˆà¸£à¸°à¸šà¸¸</p>
+        <p>�ม���~�aรายการสิ�"��0า�ี��ระ�aุ</p>
       </div>
     `;
     return;
@@ -177,13 +177,13 @@ function filterAndRenderProducts() {
     
     card.innerHTML = `
       <div class="product-img-container">
-        ${p.image ? `<img src="${p.image}" class="product-img" alt="${p.name}">` : `<div class="product-placeholder">${p.category === 'drinks' ? 'ðŸ¥¤' : 'ðŸ°'}</div>`}
+        ${p.image ? `<img src="${p.image}" class="product-img" alt="${p.name}">` : `<div class="product-placeholder">${p.category === 'drinks' ? '�x��' : '�x��'}</div>`}
       </div>
       <div class="product-info">
         <div class="product-name">${p.name}</div>
         <div class="product-footer">
-          <span class="product-price">à¸¿${p.price}</span>
-          <span class="product-stock ${isOutOfStock ? 'out' : ''}">${isOutOfStock ? 'à¸«à¸¡à¸”' : `à¸„à¸¥à¸±à¸‡: ${p.stock}`}</span>
+          <span class="product-price">฿${p.price}</span>
+          <span class="product-stock ${isOutOfStock ? 'out' : ''}">${isOutOfStock ? 'หม�' : `�ลั�!: ${p.stock}`}</span>
         </div>
       </div>
     `;
@@ -211,7 +211,7 @@ function renderCart() {
     cartContainer.innerHTML = `
       <div class="cart-empty">
         <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <p>à¸¢à¸±à¸‡à¹„à¸¡à¹ˆà¸¡à¸µà¸ªà¸´à¸™à¸„à¹‰à¸²à¹ƒà¸™à¸•à¸°à¸à¸£à¹‰à¸²</p>
+        <p>ยั�!�ม��มีสิ�"��0า๒�"�"ะกร�0า</p>
       </div>
     `;
     return;
@@ -231,16 +231,16 @@ function renderCart() {
           ${optionsText || item.notes ? `
             <div class="cart-item-options">
               ${optionsText ? `<span>${optionsText}</span>` : ''}
-              ${item.notes ? `<span style="color: var(--primary);">à¹‚à¸™à¹‰à¸•: ${item.notes}</span>` : ''}
+              ${item.notes ? `<span style="color: var(--primary);">��"�0�": ${item.notes}</span>` : ''}
             </div>
           ` : ''}
         </div>
         <div class="cart-item-price-col">
-          <div class="cart-item-total">à¸¿${itemTotal}</div>
+          <div class="cart-item-total">฿${itemTotal}</div>
         </div>
       </div>
       <div class="cart-item-controls">
-        <button class="cart-item-notes-btn" data-index="${index}">à¹à¸à¹‰à¹„à¸‚à¹‚à¸™à¹‰à¸•</button>
+        <button class="cart-item-notes-btn" data-index="${index}">แก�0����"�0�"</button>
         <div class="cart-quantity-selector">
           <button class="qty-btn" data-action="decrease" data-index="${index}">-</button>
           <span class="qty-val">${item.qty}</span>
@@ -262,7 +262,7 @@ function renderCart() {
         if (state.cart[idx].qty < product.stock) {
           state.cart[idx].qty += 1;
         } else {
-          alert(`à¹„à¸¡à¹ˆà¸ªà¸²à¸¡à¸²à¸£à¸–à¹€à¸žà¸´à¹ˆà¸¡à¸ˆà¸³à¸™à¸§à¸™à¹„à¸”à¹‰ à¸ªà¸´à¸™à¸„à¹‰à¸²à¹ƒà¸™à¸„à¸¥à¸±à¸‡à¸¡à¸µà¸ˆà¸³à¸à¸±à¸” (${product.stock} à¸Šà¸´à¹‰à¸™)`);
+          alert(`�ม��สามาร�๬�~ิ��ม��ำ�"ว�"���0 สิ�"��0า๒�"�ลั�!มี��ำกั� (${product.stock} �`ิ�0�")`);
         }
       } else {
         state.cart[idx].qty -= 1;
@@ -279,7 +279,7 @@ function renderCart() {
   cartContainer.querySelectorAll('.cart-item-notes-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const idx = parseInt(e.target.dataset.index);
-      const newNote = prompt('à¹€à¸žà¸´à¹ˆà¸¡à¸„à¸³à¹à¸™à¸°à¸™à¸³à¸žà¸´à¹€à¸¨à¸©/à¹‚à¸™à¹‰à¸•à¸ªà¸³à¸«à¸£à¸±à¸šà¸£à¸²à¸¢à¸à¸²à¸£à¸™à¸µà¹‰:', state.cart[idx].notes || '');
+      const newNote = prompt('๬�~ิ��ม�ำแ�"ะ�"ำ�~ิ๬ศษ/��"�0�"สำหรั�aรายการ�"ี�0:', state.cart[idx].notes || '');
       if (newNote !== null) {
         state.cart[idx].notes = newNote.trim();
         renderCart();
@@ -296,7 +296,7 @@ function updateCartSummary() {
   const count = getCartItemsCount();
   const total = getCartTotal();
 
-  if (qtyEl) qtyEl.textContent = `${count} à¸Šà¸´à¹‰à¸™`;
+  if (qtyEl) qtyEl.textContent = `${count} �`ิ�0�"`;
   if (totalEl) totalEl.textContent = total;
   
   if (checkoutBtn) {
@@ -337,52 +337,52 @@ function openModifierModal(product) {
       </div>
       <div class="modal-body">
         <div style="font-size: 15px; color: var(--text-secondary); margin-bottom: 20px;">
-          à¸£à¸²à¸„à¸²à¸žà¸·à¹‰à¸™à¸à¸²à¸™: à¸¿${product.price}
+          รา�า�~ื�0�"ฐา�": ฿${product.price}
         </div>
 
         ${isDrink ? `
           <!-- Sweetness Levels -->
           <div class="modifier-group">
-            <div class="modifier-label">à¸£à¸°à¸”à¸±à¸šà¸„à¸§à¸²à¸¡à¸«à¸§à¸²à¸™</div>
+            <div class="modifier-label">ระ�ั�a�วามหวา�"</div>
             <div class="modifier-options" id="options-sweetness">
-              <button class="modifier-btn" data-val="à¸«à¸§à¸²à¸™à¸›à¸à¸•à¸´ (100%)">100%</button>
-              <button class="modifier-btn" data-val="à¸«à¸§à¸²à¸™à¸™à¹‰à¸­à¸¢ (50%)">50%</button>
-              <button class="modifier-btn" data-val="à¸«à¸§à¸²à¸™à¸™à¹‰à¸­à¸¢à¸¡à¸²à¸ (25%)">25%</button>
-              <button class="modifier-btn" data-val="à¹„à¸¡à¹ˆà¸«à¸§à¸²à¸™à¹€à¸¥à¸¢ (0%)">0%</button>
-              <button class="modifier-btn" data-val="à¸«à¸§à¸²à¸™à¸¡à¸²à¸ (120%)">120%</button>
+              <button class="modifier-btn" data-val="หวา�"�:ก�"ิ (100%)">100%</button>
+              <button class="modifier-btn" data-val="หวา�"�"�0อย (50%)">50%</button>
+              <button class="modifier-btn" data-val="หวา�"�"�0อยมาก (25%)">25%</button>
+              <button class="modifier-btn" data-val="�ม��หวา�"๬ลย (0%)">0%</button>
+              <button class="modifier-btn" data-val="หวา�"มาก (120%)">120%</button>
             </div>
           </div>
 
           <!-- Toppings -->
           <div class="modifier-group">
-            <div class="modifier-label">à¸—à¹‡à¸­à¸›à¸›à¸´à¹‰à¸‡à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡</div>
+            <div class="modifier-label">��!อ�:�:ิ�0�!๬�~ิ��ม๬�"ิม</div>
             <div class="modifier-options" id="options-toppings">
-              <button class="modifier-btn selected" data-val="" data-price="0">à¹„à¸¡à¹ˆà¸£à¸±à¸šà¸—à¹‡à¸­à¸›à¸›à¸´à¹‰à¸‡</button>
-              <button class="modifier-btn" data-val="à¹€à¸žà¸´à¹ˆà¸¡à¹„à¸‚à¹ˆà¸¡à¸¸à¸ (+10à¸¿)" data-price="10">à¹„à¸‚à¹ˆà¸¡à¸¸à¸ (+à¸¿10)</button>
-              <button class="modifier-btn" data-val="à¹€à¸žà¸´à¹ˆà¸¡à¸žà¸¸à¸”à¸”à¸´à¹‰à¸‡à¸™à¸¡ (+15à¸¿)" data-price="15">à¸žà¸¸à¸”à¸”à¸´à¹‰à¸‡à¸™à¸¡ (+à¸¿15)</button>
-              <button class="modifier-btn" data-val="à¹€à¸žà¸´à¹ˆà¸¡à¸šà¸¸à¸à¸§à¸¸à¹‰à¸™ (+10à¸¿)" data-price="10">à¸šà¸¸à¸à¸§à¸¸à¹‰à¸™ (+à¸¿10)</button>
-              <button class="modifier-btn" data-val="à¹€à¸žà¸´à¹ˆà¸¡à¸§à¸´à¸›à¸„à¸£à¸µà¸¡ (+15à¸¿)" data-price="15">à¸§à¸´à¸›à¸„à¸£à¸µà¸¡ (+à¸¿15)</button>
+              <button class="modifier-btn selected" data-val="" data-price="0">�ม��รั�a��!อ�:�:ิ�0�!</button>
+              <button class="modifier-btn" data-val="๬�~ิ��ม����มุก (+10฿)" data-price="10">����มุก (+฿10)</button>
+              <button class="modifier-btn" data-val="๬�~ิ��ม�~ุ��ิ�0�!�"ม (+15฿)" data-price="15">�~ุ��ิ�0�!�"ม (+฿15)</button>
+              <button class="modifier-btn" data-val="๬�~ิ��ม�aุกวุ�0�" (+10฿)" data-price="10">�aุกวุ�0�" (+฿10)</button>
+              <button class="modifier-btn" data-val="๬�~ิ��มวิ�:�รีม (+15฿)" data-price="15">วิ�:�รีม (+฿15)</button>
             </div>
           </div>
         ` : `
           <!-- Option for snacks: Heat / Warm up -->
           <div class="modifier-group">
-            <div class="modifier-label">à¸šà¸£à¸´à¸à¸²à¸£à¸­à¸¸à¹ˆà¸™à¸£à¹‰à¸­à¸™</div>
+            <div class="modifier-label">�aริการอุ���"ร�0อ�"</div>
             <div class="modifier-options" id="options-warm">
-              <button class="modifier-btn selected" data-val="">à¹„à¸¡à¹ˆà¸•à¹‰à¸­à¸‡à¸­à¸¸à¹ˆà¸™</button>
-              <button class="modifier-btn" data-val="à¸­à¸¸à¹ˆà¸™à¸£à¹‰à¸­à¸™">à¸­à¸¸à¹ˆà¸™à¸£à¹‰à¸­à¸™à¹ƒà¸«à¹‰à¸£à¹‰à¸­à¸™à¸žà¸£à¹‰à¸­à¸¡à¸—à¸²à¸™</button>
+              <button class="modifier-btn selected" data-val="">�ม���"�0อ�!อุ���"</button>
+              <button class="modifier-btn" data-val="อุ���"ร�0อ�"">อุ���"ร�0อ�"๒ห�0ร�0อ�"�~ร�0อม�า�"</button>
             </div>
           </div>
         `}
 
         <div class="form-group" style="margin-top: 15px;">
-          <label class="form-label" style="font-size: 13px;">à¸„à¸³à¸‚à¸­à¹€à¸žà¸´à¹ˆà¸¡à¹€à¸•à¸´à¸¡à¸–à¸¶à¸‡à¸£à¹‰à¸²à¸™à¸„à¹‰à¸² (à¹‚à¸™à¹‰à¸•)</label>
-          <input class="form-input" type="text" id="modal-notes" placeholder="à¹€à¸Šà¹ˆà¸™ à¹à¸¢à¸à¸™à¹‰à¸³à¹à¸‚à¹‡à¸‡, à¸«à¸§à¸²à¸™à¸˜à¸£à¸£à¸¡à¸Šà¸²à¸•à¸´...">
+          <label class="form-label" style="font-size: 13px;">�ำ�อ๬�~ิ��ม๬�"ิม�ึ�!ร�0า�"��0า (��"�0�")</label>
+          <input class="form-input" type="text" id="modal-notes" placeholder="๬�`���" แยก�"�0ำแ��!�!, หวา�"��รรม�`า�"ิ...">
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn-secondary" id="modal-cancel-btn">à¸¢à¸à¹€à¸¥à¸´à¸</button>
-        <button class="btn-primary" id="modal-add-btn">à¹ƒà¸ªà¹ˆà¸•à¸°à¸à¸£à¹‰à¸² (à¸¿${product.price})</button>
+        <button class="btn-secondary" id="modal-cancel-btn">ยก๬ลิก</button>
+        <button class="btn-primary" id="modal-add-btn">๒ส���"ะกร�0า (฿${product.price})</button>
       </div>
     </div>
   `;
@@ -392,7 +392,7 @@ function openModifierModal(product) {
   document.getElementById('modal-close-btn').addEventListener('click', closeModifierModal);
   document.getElementById('modal-cancel-btn').addEventListener('click', closeModifierModal);
 
-  let selectedSweetness = isDrink ? 'à¸«à¸§à¸²à¸™à¸›à¸à¸•à¸´ (100%)' : '';
+  let selectedSweetness = isDrink ? 'หวา�"�:ก�"ิ (100%)' : '';
   let selectedTopping = '';
   let toppingPrice = 0;
   let selectedWarm = '';
@@ -416,7 +416,7 @@ function openModifierModal(product) {
         targetBtn.classList.add('selected');
         selectedTopping = targetBtn.dataset.val;
         toppingPrice = parseInt(targetBtn.dataset.price);
-        document.getElementById('modal-add-btn').textContent = `à¹ƒà¸ªà¹ˆà¸•à¸°à¸à¸£à¹‰à¸² (à¸¿${product.price + toppingPrice})`;
+        document.getElementById('modal-add-btn').textContent = `๒ส���"ะกร�0า (฿${product.price + toppingPrice})`;
       });
     });
   } else {
@@ -455,7 +455,7 @@ function openModifierModal(product) {
       if (targetItem.qty + 1 <= product.stock) {
         targetItem.qty += 1;
       } else {
-        alert(`à¹„à¸¡à¹ˆà¸ªà¸²à¸¡à¸²à¸£à¸–à¹€à¸žà¸´à¹ˆà¸¡à¸ˆà¸³à¸™à¸§à¸™à¹„à¸”à¹‰ à¸ªà¸´à¸™à¸„à¹‰à¸²à¹ƒà¸™à¸„à¸¥à¸±à¸‡à¸¡à¸µà¸ˆà¸³à¸à¸±à¸” (${product.stock} à¸Šà¸´à¹‰à¸™)`);
+        alert(`�ม��สามาร�๬�~ิ��ม��ำ�"ว�"���0 สิ�"��0า๒�"�ลั�!มี��ำกั� (${product.stock} �`ิ�0�")`);
       }
     } else {
       state.cart.push(cartItem);
@@ -483,30 +483,30 @@ function openPasteModal() {
   modal.innerHTML = `
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">à¸„à¸µà¸¢à¹Œà¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œà¸”à¹ˆà¸§à¸™à¸”à¹‰à¸§à¸¢à¸à¸²à¸£à¸§à¸²à¸‡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡</h3>
+        <h3 class="modal-title">�ีย�Rออร�R๬�อร�R���ว�"��0วยการวา�!��0อ�วาม</h3>
         <button class="modal-close" id="paste-modal-close-btn">&times;</button>
       </div>
       <div class="modal-body paste-modal-body">
         <p class="paste-help-text">
-          à¸„à¸±à¸”à¸¥à¸­à¸à¸£à¸²à¸¢à¸¥à¸°à¹€à¸­à¸µà¸¢à¸”à¸„à¸³à¸ªà¸±à¹ˆà¸‡à¸‹à¸·à¹‰à¸­à¸ˆà¸²à¸à¹à¸­à¸› LINE MAN à¸«à¸£à¸·à¸­ Grab à¹à¸¥à¹‰à¸§à¸§à¸²à¸‡à¸¥à¸‡à¹ƒà¸™à¸Šà¹ˆà¸­à¸‡à¸™à¸µà¹‰ à¸£à¸°à¸šà¸šà¸ˆà¸°à¸§à¸´à¹€à¸„à¸£à¸²à¸°à¸«à¹Œà¸«à¸²à¸Šà¸·à¹ˆà¸­à¹€à¸¡à¸™à¸¹ à¸ˆà¸³à¸™à¸§à¸™ à¸„à¸§à¸²à¸¡à¸«à¸§à¸²à¸™ à¹à¸¥à¸°à¸—à¹‡à¸­à¸›à¸›à¸´à¹‰à¸‡ à¹€à¸žà¸·à¹ˆà¸­à¹à¸­à¸”à¸¥à¸‡à¸šà¸´à¸¥à¹ƒà¸«à¹‰à¸—à¸±à¸™à¸—à¸µà¹‚à¸”à¸¢à¹„à¸¡à¹ˆà¸•à¹‰à¸­à¸‡à¸„à¸µà¸¢à¹Œà¹à¸¢à¸à¸Šà¸´à¹‰à¸™
+          �ั�ลอกรายละ๬อีย��ำสั���!�9ื�0อ��ากแอ�: LINE MAN หรือ Grab แล�0ววา�!ล�!๒�"�`��อ�!�"ี�0 ระ�a�a��ะวิ๬�ราะห�Rหา�`ื��อ๬ม�"ู ��ำ�"ว�" �วามหวา�" และ��!อ�:�:ิ�0�! ๬�~ื��อแอ�ล�!�aิล๒ห�0�ั�"�ี��ย�ม���"�0อ�!�ีย�Rแยก�`ิ�0�"
         </p>
-        <textarea class="paste-textarea" id="paste-textarea-input" placeholder="à¸•à¸±à¸§à¸­à¸¢à¹ˆà¸²à¸‡à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡:
-LINE MAN à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ #4821
-2x à¸Šà¸²à¸™à¸¡à¹„à¸•à¹‰à¸«à¸§à¸±à¸™à¸šà¸±à¸šà¹€à¸šà¸´à¹‰à¸¥ (Bubble Milk Tea) (à¸«à¸§à¸²à¸™à¸™à¹‰à¸­à¸¢ (50%), à¹€à¸žà¸´à¹ˆà¸¡à¹„à¸‚à¹ˆà¸¡à¸¸à¸)
-1x à¸šà¸£à¸²à¸§à¸™à¸µà¹ˆà¸”à¸²à¸£à¹Œà¸à¸Šà¹‡à¸­à¸à¹‚à¸à¹à¸¥à¸• (Dark Chocolate Brownie) (à¸­à¸¸à¹ˆà¸™à¸£à¹‰à¸­à¸™)"></textarea>
+        <textarea class="paste-textarea" id="paste-textarea-input" placeholder="�"ัวอย��า�!��0อ�วาม:
+LINE MAN ออร�R๬�อร�R #4821
+2x �`า�"ม��"�0หวั�"�aั�a๬�aิ�0ล (Bubble Milk Tea) (หวา�"�"�0อย (50%), ๬�~ิ��ม����มุก)
+1x �aราว�"ี���าร�Rก�`�!อก�กแล�" (Dark Chocolate Brownie) (อุ���"ร�0อ�")"></textarea>
         <div class="paste-help-text">
-          <strong>à¸„à¸¸à¸“à¸ªà¸¡à¸šà¸±à¸•à¸´à¸à¸²à¸£à¸•à¸£à¸§à¸ˆà¸ˆà¸±à¸š:</strong>
+          <strong>�ุ�สม�aั�"ิการ�"รว����ั�a:</strong>
           <ul>
-            <li>à¹€à¸›à¸£à¸µà¸¢à¸šà¹€à¸—à¸µà¸¢à¸šà¸„à¸³à¹à¸¥à¸°à¸„à¹‰à¸™à¸«à¸²à¹€à¸¡à¸™à¸¹à¹ƒà¸™à¸£à¹‰à¸²à¸™ (à¸£à¸­à¸‡à¸£à¸±à¸šà¸ à¸²à¸©à¸²à¹„à¸—à¸¢ à¹à¸¥à¸°à¸ à¸²à¸©à¸²à¸­à¸±à¸‡à¸à¸¤à¸©)</li>
-            <li>à¸•à¸£à¸§à¸ˆà¸ˆà¸±à¸šà¸ˆà¸³à¸™à¸§à¸™ à¹€à¸Šà¹ˆà¸™ 1x, x2 à¸«à¸£à¸·à¸­ 1 à¸Šà¸´à¹‰à¸™</li>
-            <li>à¸•à¸£à¸§à¸ˆà¸ˆà¸±à¸šà¸„à¸§à¸²à¸¡à¸«à¸§à¸²à¸™ (0%, 25%, 50%, 100%, 120%) à¹à¸¥à¸°à¸à¸²à¸£à¸­à¸¸à¹ˆà¸™à¸£à¹‰à¸­à¸™</li>
-            <li>à¸•à¸£à¸§à¸ˆà¸ˆà¸±à¸šà¸£à¸«à¸±à¸ªà¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œà¸ˆà¸²à¸à¸«à¸±à¸§à¸‚à¹‰à¸­ (à¹€à¸Šà¹ˆà¸™ #4821)</li>
+            <li>๬�:รีย�a๬�ีย�a�ำและ��0�"หา๬ม�"ู๒�"ร�0า�" (รอ�!รั�aภาษา��ย และภาษาอั�!กฤษ)</li>
+            <li>�"รว����ั�a��ำ�"ว�" ๬�`���" 1x, x2 หรือ 1 �`ิ�0�"</li>
+            <li>�"รว����ั�a�วามหวา�" (0%, 25%, 50%, 100%, 120%) และการอุ���"ร�0อ�"</li>
+            <li>�"รว����ั�aรหัสออร�R๬�อร�R��ากหัว��0อ (๬�`���" #4821)</li>
           </ul>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn-secondary" id="paste-modal-cancel-btn">à¸¢à¸à¹€à¸¥à¸´à¸</button>
-        <button class="btn-primary" id="paste-modal-import-btn">à¸™à¸³à¹€à¸‚à¹‰à¸²à¸•à¸°à¸à¸£à¹‰à¸²à¸ªà¸´à¸™à¸„à¹‰à¸²</button>
+        <button class="btn-secondary" id="paste-modal-cancel-btn">ยก๬ลิก</button>
+        <button class="btn-primary" id="paste-modal-import-btn">�"ำ๬��0า�"ะกร�0าสิ�"��0า</button>
       </div>
     </div>
   `;
@@ -519,13 +519,13 @@ LINE MAN à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ #4821
   document.getElementById('paste-modal-import-btn').addEventListener('click', () => {
     const text = document.getElementById('paste-textarea-input').value;
     if (!text.trim()) {
-      alert('à¸à¸£à¸¸à¸“à¸²à¸à¸£à¸­à¸à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸ªà¸£à¸¸à¸›à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ');
+      alert('กรุ�ากรอก��0อ�วามสรุ�:ออร�R๬�อร�R');
       return;
     }
     
     const parsed = parsePastedOrder(text);
     if (parsed.items.length === 0) {
-      alert('à¸§à¸´à¹€à¸„à¸£à¸²à¸°à¸«à¹Œà¹„à¸¡à¹ˆà¸ªà¸³à¹€à¸£à¹‡à¸ˆ: à¹„à¸¡à¹ˆà¸žà¸šà¸£à¸²à¸¢à¸Šà¸·à¹ˆà¸­à¸ªà¸´à¸™à¸„à¹‰à¸²à¹ƒà¸™à¸‚à¹‰à¸­à¸„à¸§à¸²à¸¡à¸—à¸µà¹ˆà¸•à¸£à¸‡à¸à¸±à¸šà¹€à¸¡à¸™à¸¹à¸‚à¸­à¸‡à¸£à¹‰à¸²à¸™à¸„à¹‰à¸² à¸à¸£à¸¸à¸“à¸²à¸•à¸£à¸§à¸ˆà¹€à¸Šà¹‡à¸„à¸•à¸±à¸§à¸ªà¸°à¸à¸”à¸Šà¸·à¹ˆà¸­à¹€à¸¡à¸™à¸¹à¹ƒà¸«à¹‰à¸•à¸£à¸‡à¸à¸±à¸™');
+      alert('วิ๬�ราะห�R�ม��สำ๬ร�!��: �ม���~�aราย�`ื��อสิ�"��0า๒�"��0อ�วาม�ี���"ร�!กั�a๬ม�"ู�อ�!ร�0า�"��0า กรุ�า�"รว��๬�`�!��"ัวสะก��`ื��อ๬ม�"ู๒ห�0�"ร�!กั�"');
       return;
     }
 
@@ -571,14 +571,14 @@ function parsePastedOrder(text) {
   const lowerText = text.toLowerCase();
   
   // Detect channel
-  if (lowerText.includes('line man') || lowerText.includes('lineman') || lowerText.includes('à¹„à¸¥à¸™à¹Œà¹à¸¡à¸™')) {
+  if (lowerText.includes('line man') || lowerText.includes('lineman') || lowerText.includes('�ล�"�Rแม�"')) {
     result.channel = 'lineman';
-  } else if (lowerText.includes('grab') || lowerText.includes('à¹à¸à¸£à¹‡à¸š')) {
+  } else if (lowerText.includes('grab') || lowerText.includes('แกร�!�a')) {
     result.channel = 'grab';
   }
 
   // Detect reference number
-  const refMatch = text.match(/#([a-zA-Z0-9-]+)/) || text.match(/à¸­à¸­à¸£à¹Œà¹€à¸”à¸­à¸£à¹Œ\s*#?([0-9]+)/i);
+  const refMatch = text.match(/#([a-zA-Z0-9-]+)/) || text.match(/ออร�R๬�อร�R\s*#?([0-9]+)/i);
   if (refMatch) {
     result.reference = '#' + refMatch[1];
   }
@@ -611,7 +611,7 @@ function parsePastedOrder(text) {
 
     if (matchedProduct) {
       let qty = 1;
-      const qtyMatch = cleanLine.match(/(\d+)\s*x/) || cleanLine.match(/x\s*(\d+)/) || cleanLine.match(/(\d+)\s*(à¸Šà¸´à¹‰à¸™|à¹à¸à¹‰à¸§|à¸­à¸±à¸™)/);
+      const qtyMatch = cleanLine.match(/(\d+)\s*x/) || cleanLine.match(/x\s*(\d+)/) || cleanLine.match(/(\d+)\s*(�`ิ�0�"|แก�0ว|อั�")/);
       if (qtyMatch) {
         qty = parseInt(qtyMatch[1]);
       } else {
@@ -621,38 +621,38 @@ function parsePastedOrder(text) {
         }
       }
 
-      let sweetness = matchedProduct.category === 'drinks' ? 'à¸«à¸§à¸²à¸™à¸›à¸à¸•à¸´ (100%)' : '';
+      let sweetness = matchedProduct.category === 'drinks' ? 'หวา�"�:ก�"ิ (100%)' : '';
       if (matchedProduct.category === 'drinks') {
-        if (cleanLine.includes('50%') || cleanLine.includes('à¸«à¸§à¸²à¸™à¸™à¹‰à¸­à¸¢') || cleanLine.includes('à¸«à¸§à¸²à¸™ 50%')) {
-          sweetness = 'à¸«à¸§à¸²à¸™à¸™à¹‰à¸­à¸¢ (50%)';
-        } else if (cleanLine.includes('25%') || cleanLine.includes('à¸«à¸§à¸²à¸™à¸™à¹‰à¸­à¸¢à¸¡à¸²à¸') || cleanLine.includes('à¸«à¸§à¸²à¸™ 25%')) {
-          sweetness = 'à¸«à¸§à¸²à¸™à¸™à¹‰à¸­à¸¢à¸¡à¸²à¸ (25%)';
-        } else if (cleanLine.includes('0%') || cleanLine.includes('à¹„à¸¡à¹ˆà¸«à¸§à¸²à¸™') || cleanLine.includes('à¸«à¸§à¸²à¸™ 0%')) {
-          sweetness = 'à¹„à¸¡à¹ˆà¸«à¸§à¸²à¸™à¹€à¸¥à¸¢ (0%)';
-        } else if (cleanLine.includes('120%') || cleanLine.includes('à¸«à¸§à¸²à¸™à¸¡à¸²à¸') || cleanLine.includes('à¸«à¸§à¸²à¸™ 120%')) {
-          sweetness = 'à¸«à¸§à¸²à¸™à¸¡à¸²à¸ (120%)';
+        if (cleanLine.includes('50%') || cleanLine.includes('หวา�"�"�0อย') || cleanLine.includes('หวา�" 50%')) {
+          sweetness = 'หวา�"�"�0อย (50%)';
+        } else if (cleanLine.includes('25%') || cleanLine.includes('หวา�"�"�0อยมาก') || cleanLine.includes('หวา�" 25%')) {
+          sweetness = 'หวา�"�"�0อยมาก (25%)';
+        } else if (cleanLine.includes('0%') || cleanLine.includes('�ม��หวา�"') || cleanLine.includes('หวา�" 0%')) {
+          sweetness = '�ม��หวา�"๬ลย (0%)';
+        } else if (cleanLine.includes('120%') || cleanLine.includes('หวา�"มาก') || cleanLine.includes('หวา�" 120%')) {
+          sweetness = 'หวา�"มาก (120%)';
         }
       }
 
       let topping = '';
       let toppingPrice = 0;
       if (matchedProduct.category === 'drinks') {
-        if (cleanLine.includes('à¹„à¸‚à¹ˆà¸¡à¸¸à¸')) {
-          topping = 'à¹€à¸žà¸´à¹ˆà¸¡à¹„à¸‚à¹ˆà¸¡à¸¸à¸ (+10à¸¿)';
+        if (cleanLine.includes('����มุก')) {
+          topping = '๬�~ิ��ม����มุก (+10฿)';
           toppingPrice = 10;
-        } else if (cleanLine.includes('à¸žà¸¸à¸”à¸”à¸´à¹‰à¸‡')) {
-          topping = 'à¹€à¸žà¸´à¹ˆà¸¡à¸žà¸¸à¸”à¸”à¸´à¹‰à¸‡à¸™à¸¡ (+15à¸¿)';
+        } else if (cleanLine.includes('�~ุ��ิ�0�!')) {
+          topping = '๬�~ิ��ม�~ุ��ิ�0�!�"ม (+15฿)';
           toppingPrice = 15;
-        } else if (cleanLine.includes('à¸šà¸¸à¸') || cleanLine.includes('à¸§à¸¸à¹‰à¸™')) {
-          topping = 'à¹€à¸žà¸´à¹ˆà¸¡à¸šà¸¸à¸à¸§à¸¸à¹‰à¸™ (+10à¸¿)';
+        } else if (cleanLine.includes('�aุก') || cleanLine.includes('วุ�0�"')) {
+          topping = '๬�~ิ��ม�aุกวุ�0�" (+10฿)';
           toppingPrice = 10;
-        } else if (cleanLine.includes('à¸§à¸´à¸›à¸„à¸£à¸µà¸¡') || cleanLine.includes('à¸§à¸´à¸›')) {
-          topping = 'à¹€à¸žà¸´à¹ˆà¸¡à¸§à¸´à¸›à¸„à¸£à¸µà¸¡ (+15à¸¿)';
+        } else if (cleanLine.includes('วิ�:�รีม') || cleanLine.includes('วิ�:')) {
+          topping = '๬�~ิ��มวิ�:�รีม (+15฿)';
           toppingPrice = 15;
         }
       } else {
-        if (cleanLine.includes('à¸­à¸¸à¹ˆà¸™') || cleanLine.includes('à¸£à¹‰à¸­à¸™')) {
-          topping = 'à¸­à¸¸à¹ˆà¸™à¸£à¹‰à¸­à¸™';
+        if (cleanLine.includes('อุ���"') || cleanLine.includes('ร�0อ�"')) {
+          topping = 'อุ���"ร�0อ�"';
         }
       }
 
@@ -661,7 +661,7 @@ function parsePastedOrder(text) {
       if (parenthesesMatch) {
         const collected = parenthesesMatch.map(m => m.slice(1, -1)).filter(n => {
           const l = n.toLowerCase();
-          return !l.includes('à¸«à¸§à¸²à¸™') && !l.includes('%') && !l.includes('à¹„à¸‚à¹ˆà¸¡à¸¸à¸') && !l.includes('à¸žà¸¸à¸”à¸”à¸´à¹‰à¸‡') && !l.includes('à¸šà¸¸à¸') && !l.includes('à¸§à¸´à¸›') && !l.includes('à¸­à¸¸à¹ˆà¸™') && !l.includes('à¸£à¹‰à¸­à¸™');
+          return !l.includes('หวา�"') && !l.includes('%') && !l.includes('����มุก') && !l.includes('�~ุ��ิ�0�!') && !l.includes('�aุก') && !l.includes('วิ�:') && !l.includes('อุ���"') && !l.includes('ร�0อ�"');
         });
         if (collected.length > 0) {
           notes = collected.join(', ');
@@ -691,7 +691,7 @@ async function handleCheckout() {
   // Verify stock check
   for (let item of state.cart) {
     if (item.qty > item.product.stock) {
-      alert(`à¸ªà¸´à¸™à¸„à¹‰à¸² "${item.product.name}" à¸¡à¸µà¸ˆà¸³à¸™à¸§à¸™à¸ªà¸´à¸™à¸„à¹‰à¸²à¹„à¸¡à¹ˆà¸žà¸­à¹ƒà¸™à¸ªà¸•à¹‡à¸­à¸ (à¸¡à¸µà¹€à¸«à¸¥à¸·à¸­à¹€à¸žà¸µà¸¢à¸‡ ${item.product.stock} à¸Šà¸´à¹‰à¸™)`);
+      alert(`สิ�"��0า "${item.product.name}" มี��ำ�"ว�"สิ�"��0า�ม���~อ๒�"ส�"�!อก (มี๬หลือ๬�~ีย�! ${item.product.stock} �`ิ�0�")`);
       return;
     }
   }
@@ -710,7 +710,7 @@ async function handleCheckout() {
       qty: item.qty,
       price: item.product.price + item.toppingPrice,
       cost: item.product.cost,
-      options: mods + (item.notes ? ` (à¹‚à¸™à¹‰à¸•: ${item.notes})` : '')
+      options: mods + (item.notes ? ` (��"�0�": ${item.notes})` : '')
     };
   });
 
@@ -758,7 +758,7 @@ async function handleCheckout() {
     hour: '2-digit', minute: '2-digit', second: '2-digit'
   });
 
-  let channelLabel = 'à¸«à¸™à¹‰à¸²à¸£à¹‰à¸²à¸™ / à¸­à¸·à¹ˆà¸™à¹†';
+  let channelLabel = 'ห�"�0าร�0า�" / อื���"� ';
   if (state.selectedChannel === 'lineman') channelLabel = 'LINE MAN';
   if (state.selectedChannel === 'grab') channelLabel = 'Grab';
 
@@ -767,22 +767,22 @@ async function handleCheckout() {
       <div class="receipt-header">
         <div class="receipt-title">${state.shopProfile.name}</div>
         <div class="receipt-subtitle">${state.shopProfile.address}</div>
-        <div class="receipt-subtitle">à¹‚à¸—à¸£. ${state.shopProfile.phone}</div>
+        <div class="receipt-subtitle">��ร. ${state.shopProfile.phone}</div>
         <div class="receipt-channel-badge">${channelLabel} ${newOrder.reference}</div>
       </div>
       
       <div class="receipt-metadata">
-        <div><strong>à¸šà¸´à¸¥à¹€à¸¥à¸‚à¸—à¸µà¹ˆ:</strong> ${newOrder.id.toUpperCase()}</div>
-        <div><strong>à¸§à¸±à¸™à¸—à¸µà¹ˆà¸ªà¸±à¹ˆà¸‡:</strong> ${thaiDate}</div>
-        <div><strong>à¸œà¸¹à¹‰à¸—à¸³à¸£à¸²à¸¢à¸à¸²à¸£:</strong> ${state.user.username}</div>
+        <div><strong>�aิล๬ล��ี��:</strong> ${newOrder.id.toUpperCase()}</div>
+        <div><strong>วั�"�ี��สั���!:</strong> ${thaiDate}</div>
+        <div><strong>�Sู�0�ำรายการ:</strong> ${state.user.username}</div>
       </div>
       
       <table class="receipt-items-table">
         <thead>
           <tr>
-            <th>à¸£à¸²à¸¢à¸à¸²à¸£</th>
-            <th style="width: 15%; text-align: center;">à¸ˆà¸³à¸™à¸§à¸™</th>
-            <th class="price-col" style="width: 25%;">à¸¢à¸­à¸”à¸£à¸§à¸¡</th>
+            <th>รายการ</th>
+            <th style="width: 15%; text-align: center;">��ำ�"ว�"</th>
+            <th class="price-col" style="width: 25%;">ยอ�รวม</th>
           </tr>
         </thead>
         <tbody>
@@ -793,7 +793,7 @@ async function handleCheckout() {
                 ${item.options ? `<div class="receipt-item-details">${item.options}</div>` : ''}
               </td>
               <td style="text-align: center;">x${item.qty}</td>
-              <td class="price-col">à¸¿${item.price * item.qty}</td>
+              <td class="price-col">฿${item.price * item.qty}</td>
             </tr>
           `).join('')}
         </tbody>
@@ -801,12 +801,12 @@ async function handleCheckout() {
       
       <div class="receipt-summary">
         <div class="receipt-summary-row">
-          <span>à¸ˆà¸³à¸™à¸§à¸™à¸—à¸±à¹‰à¸‡à¸«à¸¡à¸”</span>
-          <span>${getCartItemsCount()} à¸Šà¸´à¹‰à¸™</span>
+          <span>��ำ�"ว�"�ั�0�!หม�</span>
+          <span>${getCartItemsCount()} �`ิ�0�"</span>
         </div>
         <div class="receipt-summary-row total">
-          <span>à¸¢à¸­à¸”à¸£à¸§à¸¡à¸—à¸±à¹‰à¸‡à¸ªà¸´à¹‰à¸™</span>
-          <span>à¸¿${newOrder.total}</span>
+          <span>ยอ�รวม�ั�0�!สิ�0�"</span>
+          <span>฿${newOrder.total}</span>
         </div>
       </div>
       
