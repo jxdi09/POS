@@ -2,37 +2,37 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Sweet & Sip POS</title>
-  <!-- Apple Web App Meta Tags -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Enable mobile web app capabilities -->
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="SweetPOS">
-  <!-- Fonts -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
+  <title>SweetPOS &amp; Sip - iPad System</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- CSS Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="shared/shared.css">
+
+  <!-- Dexie.js (IndexedDB wrapper) -->
+  <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- SVG Charts Library (Chartist.js) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 </head>
 <body>
-  <!-- App Shell -->
-  <div id="app">
-    <!-- Login Screen, Register Screen, Inventory Screen, and Reports are dynamically rendered here -->
-    <div class="app-loading">
-      <div class="spinner"></div>
-      <p>กำลังโหลดระบบ POS...</p>
-    </div>
-  </div>
+  <!-- App Mount Point -->
+  <div id="app"></div>
 
-  <!-- Hidden Print Area for Receipts -->
-  <div id="print-area"></div>
-
-  <!-- Database Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/dexie@3.2.4/dist/dexie.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/dist/umd/supabase.js"></script>
-
-  <!-- App Logic -->
-  <script src="app.js"></script>
+  <!-- Shared Scripts -->
+  <script src="shared/db.js"></script>
+  <script src="shared/state.js"></script>
+  
+  <!-- Login Script -->
+  <script src="login.js"></script>
 </body>
 </html>

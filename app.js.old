@@ -2375,26 +2375,6 @@ function handleImportDb(e) {
 // TAB: HISTORY VIEW
 // ==========================================================================
 function renderHistory(container) {
-  container.innerHTML = `
-    <div class="page-header">
-      <h2 class="page-title">ประวัติคำสั่งซื้อทั้งหมด (Order History)</h2>
-    </div>
-    <div class="inventory-list-panel">
-      <div class="table-responsive">
-        <table class="inventory-table">
-          <thead>
-            <tr>
-              <th>วันที่/เวลา</th>
-              <th>บิลเลขที่</th>
-              <th>ช่องทาง</th>
-              <th>รายละเอียดรายการ</th>
-              <th>ยอดรวม</th>
-              <th>ค่า GP หัก</th>
-              <th>กำไรสุทธิ</th>
-              <th style="text-align: center;">พิมพ์ซ้ำ</th>
-            </tr>
-          </thead>
-          <tbody id="history-orders-body"></tbody>
         </table>
       </div>
     </div>
@@ -2468,7 +2448,7 @@ function renderPurchasing(container) {
             <label class="form-label" for="pur-material">เลือกวัตถุดิบ</label>
             <select class="form-input" id="pur-material" required>
               <option value="">-- เลือกรายการ --</option>
-              ${state.materials.map(m => '<option value="' + m.id + '">' + m.name + ' (' + m.unit + ')</option>').join('')}
+              ${state.materials.map(m => `<option value="${m.id}">${m.name} (${m.unit})</option>`).join('')}
             </select>
           </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
