@@ -28,9 +28,9 @@
   <!-- App Mount Point -->
   <div id="app"></div>
 
-  <!-- Shared Scripts -->
-  <script src="shared/db.js"></script>
+  <!-- Shared Scripts (state.js MUST load before db.js) -->
   <script src="shared/state.js"></script>
+  <script src="shared/db.js"></script>
   
   <!-- Login Script -->
   <script src="login.js"></script>
