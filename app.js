@@ -2411,7 +2411,7 @@ function renderHistory(container) {
       let chLabel = 'หน้าร้าน'; let chClass = 'walkin';
       if (order.channel === 'lineman') { chLabel = 'LINE MAN'; chClass = 'lineman'; }
       if (order.channel === 'grab') { chLabel = 'Grab'; chClass = 'grab'; }
-      const itemsSummary = order.items.map(it => `${it.name} (x${it.qty})${it.options ? ` [${it.options}]` : ''}`).join('<br>');
+      const itemsSummary = order.items.map(it => it.name + ' (x' + it.qty + ')' + (it.options ? ' [' + it.options + ']' : '')).join('<br>');
       const gpAmt = order.gpAmount !== undefined ? order.gpAmount : 0;
 
       tr.innerHTML = `
@@ -2420,7 +2420,7 @@ function renderHistory(container) {
         <td><span class="margin-pill ${chClass}" style="color: white; font-weight: bold;">${chLabel} ${order.reference}</span></td>
         <td style="font-size: 13px; line-height: 1.4; max-width: 320px;">${itemsSummary}</td>
         <td style="font-family: var(--font-latin); font-weight: 600;">฿${order.total}</td>
-        <td style="font-family: var(--font-latin); color: #FF4D4F;">${gpAmt > 0 ? `฿${gpAmt.toFixed(1)}` : '฿0'}</td>
+        <td style="font-family: var(--font-latin); color: #FF4D4F;">${gpAmt > 0 ? '฿' + gpAmt.toFixed(1) : '฿0'}</td>
         <td style="font-family: var(--font-latin); font-weight: 600; color: ${order.profit >= 0 ? 'var(--secondary)' : '#FF4D4F'}">฿${order.profit.toFixed(1)}</td>
         <td style="text-align: center;">
           <button class="btn-icon btn-print-reprint" data-id="${order.id}">
@@ -2468,7 +2468,7 @@ function renderPurchasing(container) {
             <label class="form-label" for="pur-material">เลือกวัตถุดิบ</label>
             <select class="form-input" id="pur-material" required>
               <option value="">-- เลือกรายการ --</option>
-              ${state.materials.map(m => `<option value="${m.id}">${m.name} (${m.unit})</option>`).join('')}
+              ${state.materials.map(m => '<option value="' + m.id + '">' + m.name + ' (' + m.unit + ')</option>').join('')}
             </select>
           </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
