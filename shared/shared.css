@@ -1783,3 +1783,84 @@ body.dark-theme .theme-toggle-btn {
     text-transform: uppercase;
   }
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (PC, IPAD, MOBILE)
+   ========================================================================== */
+
+/* 1. PC / Large Desktop Wrapper - Prevent stretching too wide */
+@media (min-width: 1441px) {
+  body {
+    display: flex;
+    justify-content: center;
+    background-color: #EFECE6; /* Darker outside the app area */
+  }
+  
+  /* The app container itself or any body content */
+  .app-container, .login-container {
+    width: 100%;
+    max-width: 1440px; /* Constrain to iPad Pro max landscape width or a reasonable desktop width */
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    background-color: var(--bg-app);
+  }
+}
+
+/* 2. Mobile / Small Screen Adjustments */
+@media (max-width: 992px) {
+  /* Stack POS Layout (Catalog & Cart) */
+  .pos-layout {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .pos-catalog {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    flex: none; /* Do not flex 1, let it take natural height or minimum height */
+    min-height: 500px;
+    overflow-y: visible; /* Let container scroll naturally */
+  }
+
+  .pos-cart {
+    width: 100%;
+    flex: none;
+    min-height: 400px;
+    border-left: none;
+    border-top: 2px solid var(--border-color);
+  }
+  
+  /* Make header scrollable if too many items */
+  .main-header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+  
+  .main-nav {
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 5px;
+  }
+
+  .header-user {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Smaller phones */
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+  
+  .product-img-container {
+    height: 100px;
+  }
+  
+  .modal-content {
+    max-height: 90vh;
+  }
+}
